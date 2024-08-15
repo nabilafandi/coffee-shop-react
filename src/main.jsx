@@ -1,15 +1,26 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter as Router } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import Navbar from "./components/Navbar.jsx";
-import App from "./App.jsx";
+import Navbar from "./components/Navbartw.jsx";
+
+import Home from "./pages/Home.jsx";
+import Shop from "./pages/Shop.jsx";
+
 import "./index.css";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />,
+  },
+  { path: "/shop/", 
+    element: <Shop /> },
+]);
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Navbar />
-    <Router>
-      <App />
-    </Router>
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
