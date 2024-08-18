@@ -1,10 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import {
-  Dialog,
-  DialogPanel,
-} from "@headlessui/react";
+import { Dialog, DialogPanel } from "@headlessui/react";
 import {
   Bars3Icon,
 
@@ -12,8 +9,68 @@ import {
 } from "@heroicons/react/24/outline";
 import { FaInstagram } from "react-icons/fa";
 
+import { NavLink } from "react-router-dom";
 
-export default function Example() {
+
+
+const NavigationLinks = ({ isDialog = false }) => {
+  const navigations = [
+    {
+      'string': 'ABOUT US',
+      'to': '/about'
+    },
+    {
+      'string': 'LOCATION',
+      'to': '/location'
+    },
+    {
+      'string': 'RESERVATION',
+      'to': '/reservation'
+    },
+    {
+      'string': 'SHOP',
+      'to': '/shop'
+    },
+  ]
+  if (!isDialog) {
+    return (
+      <div className="hidden lg:flex lg:gap-x-12">
+        {navigations.map((item) => (
+          <NavLink to={item.to} className={({ isActive }) => (
+            isActive
+              ? "text-sm font-semibold leading-6 text-blue-500"
+              : "text-sm font-semibold leading-6 text-gray-900"
+          )}
+>
+            {item.string}
+          </NavLink>
+        ))}
+      </div>
+    );
+  } else {
+    return (
+      <div className="-my-6 divide-y divide-gray-500/10">
+        <div className="space-y-2 py-6">
+          {navigations.map((item) => (
+            <NavLink to={item.to} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
+              {item.string}
+            </NavLink>
+          ))}
+        </div>
+        {/* <div className="py-6">
+          <a
+            href="#"
+            className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+          >
+            SHOP
+          </a>
+        </div> */}
+      </div>
+    );
+  }
+};
+
+export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
@@ -32,9 +89,8 @@ export default function Example() {
           </button>
         </div>
 
-        
         <div className="flex lg:mr-10 lg:items-center justify-start">
-          <a href="#" className="hidden lg:flex -m-1.5 p-1.5">
+          <a href="/" className="hidden lg:flex -m-1.5 p-1.5">
             <img
               alt=""
               src="/src/assets/Logo/LogoTripical.png"
@@ -43,24 +99,10 @@ export default function Example() {
           </a>
         </div>
 
-        <div className="hidden lg:flex lg:gap-x-12">
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-            ABOUT US
-          </a>
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-            LOCATIONS
-          </a>
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-            RESERVATION
-          </a>
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-            SHOP
-          </a>
-        </div>
+        <NavigationLinks />
         <div className="lg:flex lg:flex-1 lg:justify-end">
           <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-          <FaInstagram aria-hidden="true" className="h-6 w-6" />
-   
+            <FaInstagram aria-hidden="true" className="h-6 w-6" />
           </a>
         </div>
       </nav>
@@ -78,43 +120,14 @@ export default function Example() {
               className=" text-gray-700"
             >
               <img
-              alt=""
-              src="/src/assets/Logo/LogoTripical.png"
-              className="h-6 w-auto"
-            />
+                alt=""
+                src="/src/assets/Logo/LogoTripical.png"
+                className="h-6 w-auto"
+              />
             </button>
           </div>
           <div className="mt-6 flow-root">
-            <div className="-my-6 divide-y divide-gray-500/10">
-              <div className="space-y-2 py-6">
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  ABOUT US
-                </a>
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  LOCATION
-                </a>
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  RESERVATION
-                </a>
-              </div>
-              <div className="py-6">
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  SHOP
-                </a>
-              </div>
-            </div>
+            <NavigationLinks isDialog/>
           </div>
         </DialogPanel>
       </Dialog>
