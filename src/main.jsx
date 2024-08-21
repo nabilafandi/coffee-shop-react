@@ -2,10 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import Navbar from "./components/Navbartw.jsx";
-
 import Home from "./pages/Home.jsx";
 import Shop from "./pages/Shop.jsx";
+import AboutUs from "./pages/AboutUs.jsx";
 
 import "./index.css";
 
@@ -17,6 +16,10 @@ const router = createBrowserRouter([
   {
     path: "/shop/",
     element: <Shop />,
+  },
+  {
+    path: "/about/",
+    element: <AboutUs />,
   },
 ]);
 

@@ -1,5 +1,5 @@
 import LogoTripical from "../assets/Logo/LogoTripical.png";
-import background from "../assets/background/backgroundimage.jpg";
+import background from "../assets/background/bg-trippical.jpeg";
 
 const Logo = () => {
   return (
