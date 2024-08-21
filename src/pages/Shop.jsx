@@ -210,8 +210,8 @@ const navigation = {
 
 const StoreNavigation = () => {
   return (
-    <div className="bg-white">
-      <header className="relative bg-white">
+    <div className="bg-offWhite">
+      <header className="relative bg-offWhite">
         <nav
           aria-label="Top"
           className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"
@@ -235,7 +235,7 @@ const StoreNavigation = () => {
                       >
                         <div
                           aria-hidden="true"
-                          className="absolute inset-0 top-1/2 bg-white shadow"
+                          className="absolute inset-0 top-1/2 bg-offWhite shadow"
                         />
                         <ProductList items={category} />
                       </PopoverPanel>

@@ -4,7 +4,7 @@ import background from "../assets/background/bg-trippical.jpeg";
 const Logo = () => {
   return (
     <div className="flex flex-col items-center justify-center ">
-      <h1 className="flex font-sans font-bold center items-center text-red-800 text-2xl ">
+      <h1 className="flex font-mogena center items-center text-red-800 text-2xl ">
         Tripical
         <img
           src={LogoTripical}
@@ -13,7 +13,7 @@ const Logo = () => {
         />
         Coffee
       </h1>
-      <p className=" text-xs ">Beyond your expectation</p>
+      <p className=" text-xs text-trippicalWhite font- "> <i>Beyond</i>  Your Expectation</p>
     </div>
   );
 };

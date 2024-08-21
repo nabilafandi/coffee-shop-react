@@ -16,23 +16,23 @@ const NavigationLinks = ({ isDialog = false }) => {
   const navigations = [
     {
       id: "about",
-      string: "ABOUT US",
+      string: "About us",
       to: "/about",
     },
     {
-      id: "location",
-      string: "LOCATION",
-      to: "/location",
-    },
-    {
-      id: "reservation",
-      string: "RESERVATION",
-      to: "/reservation",
-    },
-    {
       id: "shop",
-      string: "SHOP",
+      string: "Shop",
       to: "/shop",
+    },
+    {
+      id: "locations",
+      string: "Locations",
+      to: "/locations",
+    },
+    {
+      id: "promo",
+      string: "Promo",
+      to: "/promo",
     },
   ];
   if (!isDialog) {
@@ -44,8 +44,8 @@ const NavigationLinks = ({ isDialog = false }) => {
             to={item.to}
             className={({ isActive }) =>
               isActive
-                ? "text-sm font-semibold leading-6 text-blue-500"
-                : "text-sm font-semibold leading-6 text-gray-900"
+                ? "text-sm font-bold leading-6 text-logoRed"
+                : "text-sm font-normal leading-6 text-trippicalWhite"
             }
           >
             {item.string}
@@ -61,20 +61,12 @@ const NavigationLinks = ({ isDialog = false }) => {
             <NavLink
               key={item.id}
               to={item.to}
-              className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+              className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-trippicalBlack hover:bg-gray-50"
             >
               {item.string}
             </NavLink>
           ))}
         </div>
-        {/* <div className="py-6">
-          <a
-            href="#"
-            className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-          >
-            SHOP
-          </a>
-        </div> */}
       </div>
     );
   }
@@ -93,7 +85,7 @@ export default function Navbar() {
           <button
             type="button"
             onClick={() => setMobileMenuOpen(true)}
-            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-trippicalWhite"
           >
             <Bars3Icon aria-hidden="true" className="h-6 w-6" />
           </button>
@@ -111,7 +103,7 @@ export default function Navbar() {
 
         <NavigationLinks isDialog:false />
         <div className="lg:flex lg:flex-1 lg:justify-end">
-          <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
+          <a href="#" className="text-sm font-semibold leading-6 text-logoRed">
             <FaInstagram aria-hidden="true" className="h-6 w-6" />
           </a>
         </div>
@@ -127,7 +119,7 @@ export default function Navbar() {
             <button
               type="button"
               onClick={() => setMobileMenuOpen(false)}
-              className=" text-gray-700"
+              className=" text-trippicalWhite"
             >
               <img
                 alt=""

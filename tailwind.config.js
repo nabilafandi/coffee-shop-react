@@ -24,7 +24,8 @@ export default withMT({
 
       },
       fontFamily: {
-        'avenir': ['avenir', 'sans-serif']
+        'avenir': ['Avenir', 'sans-serif'],
+        'mogena': ['Mogena', 'sans-serif'],
       }
     },
   },

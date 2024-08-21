@@ -20,16 +20,16 @@ const Product = ({ product }) => {
           </h3>
           <p className="mt-1 text-sm text-gray-500">{product.color}</p>
         </div>
-        <p className="text-sm font-medium text-gray-900">{product.price}</p>
+        <p className="text-sm font-medium text-trippicalBlack">{product.price}</p>
       </div>
     </div>
   );
 };
 const ProductList = ({ items }) => {
   return (
-    <div className="bg-white">
+    <div className="bg-offWhite">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24">
-        <h2 className="text-2xl font-bold tracking-tight text-gray-900">
+        <h2 className="text-2xl font-bold tracking-tight text-trippicalBlack">
           {items.name}
         </h2>
 

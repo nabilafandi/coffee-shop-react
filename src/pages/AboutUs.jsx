@@ -54,9 +54,9 @@ const AboutUs = () => {
       <div className="container mx-auto py-16 w-72">
         <div className="flex justify-center">
           <img
-            src={"src/assets/background/backgroundimage.jpg"}
+            src={"src/assets/photos/outfit.png"}
             alt="About Us Image"
-            className="w-full h-auto object-cover mb-8 "
+            className="w-full h-52 object-cover mb-8 "
           />
         </div>
         <div className="mb-8">
@@ -69,7 +69,7 @@ const AboutUs = () => {
           </h2>
         </div>
       </div>
-      {/* <div className="container mx-auto py-16 w-72">
+      <div className="container mx-auto py-16 w-72">
         <div>
           <h1 className="text-4xl font-bold text-center mb-8">[Products]</h1>
         </div>
@@ -82,26 +82,26 @@ const AboutUs = () => {
             </div>
           ))}
         </div>
-      </div> */}
+      </div>
       <div className="container mx-auto py-16 w-full">
         <div>
           <h1 className="text-4xl font-bold text-center mb-8">[Past Events]</h1>
         </div>
         <Carousel className="" autoplay autoplayDelay="5000">
           <img
-            src="https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2560&q=80"
+            src="src/assets/photos/backyard.png"
             alt="image 1"
-            className="h-full w-full object-cover"
+            className="h-72 w-full object-cover"
           />
           <img
-            src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80"
+            src="src/assets/photos/cup.png"
             alt="image 2"
-            className="h-full w-full object-cover"
+            className="h-72 w-full object-cover"
           />
           <img
-            src="https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2762&q=80"
+            src="src/assets/photos/cup2.png"
             alt="image 3"
-            className="h-full w-full object-cover"
+            className="h-72 w-full object-cover"
           />
         </Carousel>
       </div>
