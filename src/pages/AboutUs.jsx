@@ -60,12 +60,12 @@ const AboutUs = () => {
           />
         </div>
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-center mb-8">[Title]</h1>
-          <p className="text-lg text-gray-700 text-center">[Bridging text]</p>
+          <h1 className="text-4xl font-bold text-center mb-8">Header 1</h1>
+          <p className="text-lg text-gray-700">Lorem ipsum dolor sit amet consectetur. Est neque urna sollicit. (penjelasan singkat)</p>
         </div>
         <div>
           <h2 className="text-2xl text-gray-700 text-center">
-            [Background & values]
+          Lorem ipsum dolor sit amet consectetur. Est neque urna sollicit met consectetur. Est neqmet consectetur. 
           </h2>
         </div>
       </div>
