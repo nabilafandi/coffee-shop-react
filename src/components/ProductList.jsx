@@ -28,13 +28,13 @@ const Product = ({ product }) => {
 const ProductList = ({ items }) => {
   return (
     <div className="bg-offWhite">
-      <div className="mx-auto max-w-2xl lg:max-w-full px-4 py-16 sm:px-6 sm:py-24">
+      <div className="mx-auto max-w-2xl lg:max-w-full px-4 py-16 sm:px-6 sm:py-24 lg:pt-2">
         <h2 className="text-2xl font-mogena font-bold tracking-tight text-trippicalBlack">
-          {items.name}
+        Coffee
         </h2>
 
         <div className="mt-6 grid grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10 sm:grid-cols-2 ">
-          {items.products.map((item) => (
+          {items.map((item) => (
             // eslint-disable-next-line react/jsx-key
             <Product product={item}/>
 

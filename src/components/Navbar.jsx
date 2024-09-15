@@ -10,31 +10,15 @@ import {
 } from "@heroicons/react/24/outline";
 import { FaInstagram } from "react-icons/fa";
 
-import { NavLink } from "react-router-dom";
+import {useLocation,  NavLink } from "react-router-dom";
 
+const navigations = [ { id: "about", string: "About us", to: "/about", }, { id: "shop", string: "Shop", to: "/shop", }, { id: "locations", string: "Locations", to: "/locations", }, { id: "promo", string: "Promo", to: "/promo", }, ];
 const NavigationLinks = ({ isDialog = false }) => {
-  const navigations = [
-    {
-      id: "about",
-      string: "About us",
-      to: "/about",
-    },
-    {
-      id: "shop",
-      string: "Shop",
-      to: "/shop",
-    },
-    {
-      id: "locations",
-      string: "Locations",
-      to: "/locations",
-    },
-    {
-      id: "promo",
-      string: "Promo",
-      to: "/promo",
-    },
-  ];
+  const location = useLocation();
+
+  // Determine if the current route is the homepage
+  const isHomePage = location.pathname === "/";
+
   if (!isDialog) {
     return (
       <div className="hidden lg:flex lg:gap-x-12">
@@ -44,8 +28,10 @@ const NavigationLinks = ({ isDialog = false }) => {
             to={item.to}
             className={({ isActive }) =>
               isActive
-                ? "text-sm font-bold leading-6 text-logoRed"
-                : "text-sm font-normal leading-6 text-trippicalWhite"
+                ? "text-sm font-bold leading-6 text-logoRed " 
+                : `text-sm  leading-6  ${
+                    isHomePage ? "text-trippicalWhite" : "text-trippicalBlack"
+                  }`
             }
           >
             {item.string}
@@ -79,7 +65,7 @@ export default function Navbar() {
     <header className="bg-transparent  inset-x-0 top-0  z-50">
       <nav
         aria-label="Global"
-        className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
+        className="mx-auto flex  items-center justify-between p-6 lg:px-8"
       >
         <div className="flex lg:hidden">
           <button
