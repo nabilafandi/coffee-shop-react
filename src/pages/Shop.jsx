@@ -2409,7 +2409,7 @@ const PopoverCategory = ({ name, products }) => {
 
       <PopoverPanel
         transition
-        className="absolute inset-x-0 lg:inset-x-72 top-full lg:pt-8 lg:top-0 lg:w-3/4 text-sm text-gray-500 transition data-[closed]:opacity-0 data-[enter]:duration-200 data-[leave]:duration-150 data-[enter]:ease-out data-[leave]:ease-in"
+        className="absolute inset-x-0 lg:inset-x-96 top-full lg:pt-8 lg:top-0 lg:w-3/5 text-sm text-gray-500 transition data-[closed]:opacity-0 data-[enter]:duration-200 data-[leave]:duration-150 data-[enter]:ease-out data-[leave]:ease-in"
       >
         <div
           aria-hidden="true"
@@ -2439,7 +2439,7 @@ const StoreNavigation = () => {
           </div>
         </div>
         {/* desktop */}
-        <div className="hidden lg:flex lg:items-center lg:h-screen lg:w-64 lg:flex-col  lg:border-gray-200 lg:pt-9">
+        <div className="hidden lg:flex lg:items-center lg:h-screen lg:w-72 lg:flex-col  lg:border-gray-200 lg:pt-9">
           <PopoverGroup className="flex flex-col space-y-4">
             <PopoverCategory name="Drinks" products={drinks} />
             <PopoverCategory name="Bites" products={foodies} />

@@ -1,9 +1,13 @@
 /* eslint-disable react/prop-types */
+import { Link } from "react-router-dom";
+
 
 const Product = ({ product }) => {
   return (
-      <div key={product.id} className="group relative">
+      <div className="group relative">
+        <Link to={`/shop/${product.id}`} state={{ product }}>
         <div className="w-full aspect-square overflow-hidden rounded-md bg-gray-200  group-hover:opacity-75 ">
+          
           <img
             alt={product.imageAlt}
             src={product.photo_md}
@@ -18,10 +22,14 @@ const Product = ({ product }) => {
                 {product.name}
               </a>
             </h3>
-            <p className="mt-1 text-sm text-trippicalBlack">{product.color}</p>
-          <p className="text-sm font-semibold text-logoRed ">IDR {Math.round(product.min_sell_price / 1000) } / {Math.round(product.max_sell_price / 1000)} </p>
+            {/* <p className="mt-1 text-sm text-trippicalBlack"> dsads{product.color}</p> */}
+          <p className="text-sm font-semibold text-logoRed ">
+          IDR {Math.round(product.min_sell_price / 1000) } / {Math.round(product.max_sell_price / 1000)} 
+          </p>
           </div>
         </div>
+        </Link>
+
       </div>
   );
 };
@@ -33,7 +41,7 @@ const ProductList = ({ items }) => {
         Coffee
         </h2>
 
-        <div className="mt-6 grid grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10 sm:grid-cols-2 ">
+        <div className="mt-6 grid grid-cols-2 lg:grid-cols-3 gap-x-9 gap-y-10 sm:grid-cols-2 ">
           {items.map((item) => (
             // eslint-disable-next-line react/jsx-key
             <Product product={item}/>
