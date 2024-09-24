@@ -1,20 +1,47 @@
+/* eslint-disable react/prop-types */
 
 import Navbar from "../components/Navbar";
+import { Field, Label, Radio, RadioGroup } from "@headlessui/react";
+import { FaCheck } from "react-icons/fa6";
 
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
+const VariantSelector = ({variants}) => {
+  const [selectedVariant, setSelectedVariant] = useState(null);
+  const handleVariantChange = (variant) => {
+    setSelectedVariant(variant);
+  };
+  console.log(variants)
+  return (
+    <div className="mt-4">
+      <label className="text-sm font-bold">Choose a variant:</label>
+      <div className="mt-2 grid grid-cols-2 gap-2">
 
+      <RadioGroup value={selectedVariant} onChange={setSelectedVariant} aria-label="Variant">
+      {variants.map((item) => (
+        <Field key={item.id} className="flex items-center gap-2">
+          <Radio value={item.name} className="group flex size-5 items-center justify-center rounded-md border border-trippicalBlack bg-transparent data-[checked]:bg-trippicalBlack">
+          <FaCheck  className="invisible rounded-sm text-offWhite text-xs  group-data-[checked]:visible"/> 
+
+          </Radio>
+          <Label>{item.name}</Label>
+        </Field>
+          ))}
+      </RadioGroup>
+      </div>
+    </div>
+  );
+};
 const ProductDetailSection = () => {
   const { id } = useParams();
   const location = useLocation();
 
-  const {product} = location.state
+  const { product } = location.state;
   // const [product, setProduct] = useState(null);
-  const [selectedVariant, setSelectedVariant] = useState(null);
   const [quantity, setQuantity] = useState(1);
-  console.log('product', product)
+  console.log("product", product);
 
   useEffect(() => {
     // Fetch product data by ID (from API or state)
@@ -22,9 +49,6 @@ const ProductDetailSection = () => {
     // For now, assume product is fetched or passed as prop.
   }, [id]);
 
-  const handleVariantChange = (variant) => {
-    setSelectedVariant(variant);
-  };
 
   const handleAddToCart = () => {
     if (!selectedVariant) {
@@ -41,26 +65,25 @@ const ProductDetailSection = () => {
   return (
     <div className="container mx-auto px-4 py-6">
       <div className="flex flex-col lg:flex-row gap-6">
-        <img src={product.photo_md} alt={product.imageAlt} className="w-full lg:w-1/2" />
+        <img
+          src={product.photo_md}
+          alt={product.imageAlt}
+          className="w-full lg:w-1/4 object-cover object-center aspect-square"
+        />
         <div className="w-full lg:w-1/2">
-          <h1 className="text-3xl font-bold text-trippicalBlack">{product.name}</h1>
-          <p className="text-lg text-logoRed">IDR {product.min_sell_price} - {product.max_sell_price}</p>
+          <h1 className="text-3xl font-mogena text-trippicalBlack">
+            {product.name}
+          </h1>
+          <p className="text-lg text-logoRed">
+            IDR {Math.round(product.min_sell_price / 1000)} /{" "}
+            {Math.round(product.max_sell_price / 1000)}
+          </p>
+          <p className="text-md text-trippicalBlack">
+            {product.description ? product.description : "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum "}
+          </p>
 
           {/* Variant Selector */}
-          <div className="mt-4">
-            <label className="text-sm font-medium">Choose a variant:</label>
-            <div className="mt-2 grid grid-cols-2 gap-2">
-              {product.variants.map((variant) => (
-                <button
-                  key={variant.id}
-                  className={`p-2 border ${selectedVariant?.id === variant.id ? "border-logoRed" : "border-gray-300"}`}
-                  onClick={() => handleVariantChange(variant)}
-                >
-                  {variant.name}
-                </button>
-              ))}
-            </div>
-          </div>
+          <VariantSelector variants={product.variants} />
 
           {/* Quantity Selector */}
           <div className="mt-4">

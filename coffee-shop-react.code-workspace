@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"editor.autoClosingBrackets": "always",
+		"vsintellicode.python.completionsEnabled": false,
+		"vsintellicode.java.completionsEnabled": false
+	}
+}
