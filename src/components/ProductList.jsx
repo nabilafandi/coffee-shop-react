@@ -2,9 +2,14 @@
 import { Link } from "react-router-dom";
 
 
-const Product = ({ product }) => {
+const Product = ({ product, onProductClick  }) => {
+  const handleProductClick = () => {
+    console.log('productclicked')
+    onProductClick(); // Call the function to close the popover
+  };
   return (
-      <div className="group relative">
+    
+      <div className="group relative" onClick={handleProductClick}>
         <Link to={`/shop/${product.id}`} state={{ product }}>
         <div className="w-full aspect-square overflow-hidden rounded-md bg-gray-200  group-hover:opacity-75 ">
           
@@ -33,7 +38,8 @@ const Product = ({ product }) => {
       </div>
   );
 };
-const ProductList = ({ items }) => {
+const ProductList = ({ items, onProductClick }) => {
+  
   return (
     <div className="bg-offWhite">
       <div className="mx-auto max-w-2xl lg:max-w-full px-4 py-16 sm:px-6 sm:py-24 lg:pt-2">
@@ -44,7 +50,7 @@ const ProductList = ({ items }) => {
         <div className="mt-6 grid grid-cols-2 lg:grid-cols-3 gap-x-9 gap-y-10 sm:grid-cols-2 ">
           {items.map((item) => (
             // eslint-disable-next-line react/jsx-key
-            <Product product={item}/>
+            <Product product={item} onProductClick={onProductClick} />
 
           ))}
         </div>

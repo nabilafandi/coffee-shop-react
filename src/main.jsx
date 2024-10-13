@@ -1,5 +1,7 @@
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Layout from "./layouts/layout"
+import ShopLayout from "./layouts/shopLayout.jsx";
 
 import Home from "./pages/Home.jsx";
 import Shop from "./pages/Shop.jsx";
@@ -13,27 +15,43 @@ import "./index.css";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
-  },
-  {
-    path: "/about/",
-    element: <AboutUs />,
-  },
-  {
-    path: "/shop/",
-    element: <Shop />,
-  },
-  {
-    path: "/shop/:id",
-    element: <ProductDetail  />,
-  },
-  {
-    path: "/locations/",
-    element: <Locations />,
-  },
-  {
-    path: "/promo/",
-    element: <Promo />,
+    element: <Layout />, // Use the Layout as the main wrapper
+    children: [
+      {
+        path: "/", // Default route under Layout
+        element: <Home />,
+      },
+      {
+        path: "/about/",
+        element: <AboutUs />,
+      },
+      {
+        path: "/shop/",
+        element: <ShopLayout />, // Use ShopLayout for /shop routes
+        children: [
+          {
+            path: "", // Matches /shop
+            element: <Shop />,
+          },
+          {
+            path: ":id", // Matches /shop/:id
+            element: <ProductDetail />,
+          },
+        ],
+      },
+      {
+        path: "/shop/:id",
+        element: <ProductDetail />,
+      },
+      {
+        path: "/locations/",
+        element: <Locations />,
+      },
+      {
+        path: "/promo/",
+        element: <Promo />,
+      },
+    ],
   },
 ]);
 

@@ -48,91 +48,90 @@ const products = [
   },
   // More productproductList
 ];
-const AboutUs = () => {
-  console.log('AboutUs component rendered'); 
-  const { aboutData, loading, error } = useAbout();
-  // console.log('abdta', aboutData)
-  // if (loading) {
-  //   return <div>Loading...</div>;
-  // }
-
-  // if (error) {
-  //   return <div>Error: {error}</div>;
-  // }
-
-  // if (!aboutData) {
-  //   return <div>No data available</div>;
-  // }
-
-  return (
-    <>
-      <></>
-   
-    </>
-  );
-};
-
-
 // const AboutUs = () => {
+//   console.log('AboutUs component rendered'); 
+//   const { aboutData, loading, error } = useAbout();
+//   // console.log('abdta', aboutData)
+//   // if (loading) {
+//   //   return <div>Loading...</div>;
+//   // }
+
+//   // if (error) {
+//   //   return <div>Error: {error}</div>;
+//   // }
+
+//   // if (!aboutData) {
+//   //   return <div>No data available</div>;
+//   // }
+
 //   return (
 //     <>
-//       <Navbar />
-//       <div className="container mx-auto py-16 w-72">
-//         <div className="flex justify-center">
-//           <img
-//             src={"src/assets/photos/outfit.png"}
-//             alt="About Us Image"
-//             className="w-full h-52 object-cover mb-8 "
-//           />
-//         </div>
-//         <div className="mb-8">
-//           <h1 className="text-4xl font-bold text-center mb-8">Header 1</h1>
-//           <p className="text-lg text-gray-700">Lorem ipsum dolor sit amet consectetur. Est neque urna sollicit. (penjelasan singkat)</p>
-//         </div>
-//         <div>
-//           <h2 className="text-2xl text-gray-700 text-center">
-//           Lorem ipsum dolor sit amet consectetur. Est neque urna sollicit met consectetur. Est neqmet consectetur.
-//           </h2>
-//         </div>
-//       </div>
-//       <div className="container mx-auto py-16 w-72">
-//         <div>
-//           <h1 className="text-4xl font-bold text-center mb-8">[Products]</h1>
-//         </div>
-
-//         <div className="max-h-96 overflow-y-auto">
-//           {products.map((item) => (
-//             // eslint-disable-next-line react/jsx-key
-//             <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8 ">
-//               <Product product={item} />
-//             </div>
-//           ))}
-//         </div>
-//       </div>
-//       <div className="container mx-auto py-16 w-full">
-//         <div>
-//           <h1 className="text-4xl font-bold text-center mb-8">[Past Events]</h1>
-//         </div>
-//         <Carousel className="" autoplay autoplayDelay="5000">
-//           <img
-//             src="src/assets/photos/backyard.png"
-//             alt="image 1"
-//             className="h-72 w-full object-cover"
-//           />
-//           <img
-//             src="src/assets/photos/cup.png"
-//             alt="image 2"
-//             className="h-72 w-full object-cover"
-//           />
-//           <img
-//             src="src/assets/photos/cup2.png"
-//             alt="image 3"
-//             className="h-72 w-full object-cover"
-//           />
-//         </Carousel>
-//       </div>
+//       <></>
+   
 //     </>
 //   );
 // };
+
+
+const AboutUs = () => {
+  return (
+    <>
+      <div className="container mx-auto py-16 w-72">
+        <div className="flex justify-center">
+          <img
+            src={"src/assets/photos/outfit.png"}
+            alt="About Us Image"
+            className="w-full h-52 object-cover mb-8 "
+          />
+        </div>
+        <div className="mb-8">
+          <h1 className="text-4xl font-bold text-center mb-8">Header 1</h1>
+          <p className="text-lg text-gray-700">Lorem ipsum dolor sit amet consectetur. Est neque urna sollicit. (penjelasan singkat)</p>
+        </div>
+        <div>
+          <h2 className="text-2xl text-gray-700 text-center">
+          Lorem ipsum dolor sit amet consectetur. Est neque urna sollicit met consectetur. Est neqmet consectetur.
+          </h2>
+        </div>
+      </div>
+      <div className="container mx-auto py-16 w-72">
+        <div>
+          <h1 className="text-4xl font-bold text-center mb-8">[Products]</h1>
+        </div>
+
+        <div className="max-h-96 overflow-y-auto">
+          {products.map((item) => (
+            // eslint-disable-next-line react/jsx-key
+            <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8 ">
+              <Product product={item} />
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="container mx-auto py-16 w-full">
+        <div>
+          <h1 className="text-4xl font-bold text-center mb-8">[Past Events]</h1>
+        </div>
+        <Carousel className="" autoplay autoplayDelay="5000">
+          <img
+            src="src/assets/photos/backyard.png"
+            alt="image 1"
+            className="h-72 w-full object-cover"
+          />
+          <img
+            src="src/assets/photos/cup.png"
+            alt="image 2"
+            className="h-72 w-full object-cover"
+          />
+          <img
+            src="src/assets/photos/cup2.png"
+            alt="image 3"
+            className="h-72 w-full object-cover"
+          />
+        </Carousel>
+      </div>
+    </>
+  );
+};
 
 export default AboutUs;

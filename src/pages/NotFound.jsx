@@ -5,8 +5,6 @@ const NotFound = () => {
   return (
     
     <div>
-      <Navbar />
-
       404 NotFound
       <br />
       <Link to="/">Home Link</Link>
