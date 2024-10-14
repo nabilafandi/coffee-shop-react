@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 
-import Navbar from "../components/Navbar";
 import { Field, Label, Radio, RadioGroup } from "@headlessui/react";
 import { FaCheck } from "react-icons/fa6";
 
@@ -8,28 +7,33 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
-const VariantSelector = ({variants}) => {
+const VariantSelector = ({ variants }) => {
   const [selectedVariant, setSelectedVariant] = useState(null);
   const handleVariantChange = (variant) => {
     setSelectedVariant(variant);
   };
-  console.log(variants)
+  console.log(variants);
   return (
     <div className="mt-4">
       <label className="text-sm font-bold">Choose a variant:</label>
       <div className="mt-2 grid grid-cols-2 gap-2">
-
-      <RadioGroup value={selectedVariant} onChange={setSelectedVariant} aria-label="Variant">
-      {variants.map((item) => (
-        <Field key={item.id} className="flex items-center gap-2">
-          <Radio value={item.name} className="group flex size-5 items-center justify-center rounded-md border border-trippicalBlack bg-transparent data-[checked]:bg-trippicalBlack">
-          <FaCheck  className="invisible rounded-sm text-offWhite text-xs  group-data-[checked]:visible"/> 
-
-          </Radio>
-          <Label>{item.name}</Label>
-        </Field>
+        <RadioGroup
+          value={selectedVariant}
+          onChange={setSelectedVariant}
+          aria-label="Variant"
+        >
+          {variants.map((item) => (
+            <Field key={item.id} className="flex items-center gap-2">
+              <Radio
+                value={item.name}
+                className="group flex size-5 items-center justify-center rounded-md border border-trippicalBlack bg-transparent data-[checked]:bg-trippicalBlack"
+              >
+                <FaCheck className="invisible rounded-sm text-offWhite text-xs  group-data-[checked]:visible" />
+              </Radio>
+              <Label>{item.name}</Label>
+            </Field>
           ))}
-      </RadioGroup>
+        </RadioGroup>
       </div>
     </div>
   );
@@ -48,7 +52,6 @@ const ProductDetailSection = () => {
     // Example: fetchProductById(id).then(data => setProduct(data));
     // For now, assume product is fetched or passed as prop.
   }, [id]);
-
 
   const handleAddToCart = () => {
     if (!selectedVariant) {
@@ -79,7 +82,9 @@ const ProductDetailSection = () => {
             {Math.round(product.max_sell_price / 1000)}
           </p>
           <p className="text-md text-trippicalBlack">
-            {product.description ? product.description : "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum "}
+            {product.description
+              ? product.description
+              : "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum "}
           </p>
 
           {/* Variant Selector */}
@@ -113,7 +118,6 @@ const ProductDetailSection = () => {
 const ProductDetail = () => {
   return (
     <>
-      <Navbar />
       <ProductDetailSection />
     </>
   );

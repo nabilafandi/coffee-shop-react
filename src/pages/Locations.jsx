@@ -1,11 +1,9 @@
 import { Carousel } from "@material-tailwind/react";
 
-import Navbar from "../components/Navbar";
 
 const Locations = () => {
   return (
     <>
-      <Navbar />
       <div className="container mx-auto  w-full">
         <Carousel className="" autoplay autoplayDelay="5000">
           <img
