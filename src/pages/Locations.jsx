@@ -47,7 +47,7 @@ const Locations = () => {
                 <FaWhatsapp className="mr-2" />
                 Contact Us
               </button>
-              <button className="flex items-center justify-center bg-blue-500 text-white font-semibold rounded-full px-4 py-1 ">
+              <button className="flex items-center justify-center bg-offWhite text-trippicalBlack font-semibold rounded-full px-4 py-1 ">
                 <FaMapMarkerAlt className="mr-2" />
                 Find Us
               </button>

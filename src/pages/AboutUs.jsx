@@ -1,138 +1,55 @@
-import { Carousel } from "@material-tailwind/react";
+import { motion } from 'framer-motion';
 
-import Navbar from "../components/Navbar";
-import { Product } from "../components/ProductList";
-
-import useAbout from "../hooks/useAbout";
-
-const products = [
-  {
-    id: 1,
-    name: "Basic Tee",
-    href: "#",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
-    imageAlt: "Front of men's Basic Tee in black.",
-    price: "$35",
-    color: "Black",
-  },
-  {
-    id: 2,
-    name: "Basic Tee",
-    href: "#",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-02.jpg",
-    imageAlt: "Front of men's Basic Tee in black.",
-    price: "$35",
-    color: "Black",
-  },
-  {
-    id: 3,
-    name: "Basic Tee",
-    href: "#",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-03.jpg",
-    imageAlt: "Front of men's Basic Tee in black.",
-    price: "$35",
-    color: "Black",
-  },
-  {
-    id: 4,
-    name: "Basic Tee",
-    href: "#",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
-    imageAlt: "Front of men's Basic Tee in black.",
-    price: "$35",
-    color: "Black",
-  },
-  // More productproductList
-];
 const AboutUs = () => {
-  console.log('AboutUs component rendered'); 
-  const { aboutData, loading, error } = useAbout();
-  // console.log('abdta', aboutData)
-  // if (loading) {
-  //   return <div>Loading...</div>;
-  // }
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: 0.5 } },
+  };
 
-  // if (error) {
-  //   return <div>Error: {error}</div>;
-  // }
+  const itemVariants = {
+    hidden: { x: -50, opacity: 0 },
+    visible: { x: 0, opacity: 1, transition: { duration: 0.5 } },
+  };
 
-  // if (!aboutData) {
-  //   return <div>No data available</div>;
-  // }
+  const loremVariants = {
+    hidden: { y: 50, opacity: 0 },
+    visible: { y: 0, opacity: 1, transition: { duration: 0.5 } },
+  };
 
   return (
-    <>
-      <></>
-   
-    </>
+    <div>
+      <motion.div 
+        className="container mx-auto p-8 h-screen flex items-center justify-center"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        <div className="grid grid-cols-2 gap-8 w-full">
+          <motion.div 
+            className="bg-gray-200 h-96"
+            variants={itemVariants}
+          ></motion.div>
+          <div className="flex items-center align-middle">
+            <motion.div variants={itemVariants}>
+              <p className="text-lg font-bold mb-4">Tripical Coffee</p>
+              <p className="text-4xl font-mogena">
+                Your local haven for coffee and people
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </motion.div>
+
+      <motion.div 
+        className="bg-black text-white p-8"
+        variants={loremVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        <p className="text-2xl">Lorem ipsum dolor</p>
+      </motion.div>
+    </div>
   );
 };
-
-
-// const AboutUs = () => {
-//   return (
-//     <>
-//       <Navbar />
-//       <div className="container mx-auto py-16 w-72">
-//         <div className="flex justify-center">
-//           <img
-//             src={"src/assets/photos/outfit.png"}
-//             alt="About Us Image"
-//             className="w-full h-52 object-cover mb-8 "
-//           />
-//         </div>
-//         <div className="mb-8">
-//           <h1 className="text-4xl font-bold text-center mb-8">Header 1</h1>
-//           <p className="text-lg text-gray-700">Lorem ipsum dolor sit amet consectetur. Est neque urna sollicit. (penjelasan singkat)</p>
-//         </div>
-//         <div>
-//           <h2 className="text-2xl text-gray-700 text-center">
-//           Lorem ipsum dolor sit amet consectetur. Est neque urna sollicit met consectetur. Est neqmet consectetur.
-//           </h2>
-//         </div>
-//       </div>
-//       <div className="container mx-auto py-16 w-72">
-//         <div>
-//           <h1 className="text-4xl font-bold text-center mb-8">[Products]</h1>
-//         </div>
-
-//         <div className="max-h-96 overflow-y-auto">
-//           {products.map((item) => (
-//             // eslint-disable-next-line react/jsx-key
-//             <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8 ">
-//               <Product product={item} />
-//             </div>
-//           ))}
-//         </div>
-//       </div>
-//       <div className="container mx-auto py-16 w-full">
-//         <div>
-//           <h1 className="text-4xl font-bold text-center mb-8">[Past Events]</h1>
-//         </div>
-//         <Carousel className="" autoplay autoplayDelay="5000">
-//           <img
-//             src="src/assets/photos/backyard.png"
-//             alt="image 1"
-//             className="h-72 w-full object-cover"
-//           />
-//           <img
-//             src="src/assets/photos/cup.png"
-//             alt="image 2"
-//             className="h-72 w-full object-cover"
-//           />
-//           <img
-//             src="src/assets/photos/cup2.png"
-//             alt="image 3"
-//             className="h-72 w-full object-cover"
-//           />
-//         </Carousel>
-//       </div>
-//     </>
-//   );
-// };
 
 export default AboutUs;
