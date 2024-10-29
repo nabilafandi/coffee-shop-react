@@ -1,27 +1,5 @@
 import { motion } from "framer-motion";
-import ImageSlider from "../components/ImageSlider";
 import ImageSlider2 from "../components/ImageSlider2";
-
-const images = [
-  "src/assets/photos/backyard.png",
-  "src/assets/photos/cup.png",
-  "src/assets/photos/cup2.png",
-  "src/assets/photos/facade.png",
-  "src/assets/photos/machine.png",
-  "src/assets/photos/outfit.png",
-  "src/assets/photos/backyard.png",
-  "src/assets/photos/cup.png",
-  "src/assets/photos/cup2.png",
-  "src/assets/photos/facade.png",
-  "src/assets/photos/machine.png",
-  "src/assets/photos/outfit.png",
-  "src/assets/photos/backyard.png",
-  "src/assets/photos/cup.png",
-  "src/assets/photos/cup2.png",
-  "src/assets/photos/facade.png",
-  "src/assets/photos/machine.png",
-  "src/assets/photos/outfit.png",
-];
 
 const AboutUs = () => {
   const fadeIn = {
@@ -36,7 +14,22 @@ const AboutUs = () => {
   };
 
   return (
-    <div>
+    <div className="relative">
+      <div className="-right-20 top-12 absolute rotate-12 h-80 -z-10">
+        <img
+          src="src/assets/background/tiki1.png"
+          className="mb-3 h-full object-contain"
+        />
+        <img
+          src="src/assets/background/tiki2.png"
+          className="mb-3 h-full object-contain"
+        />
+        <img
+          src="src/assets/background/tiki3.png"
+          className="mb-3 h-full object-contain"
+        />
+      </div>
+
       <motion.div
         className="container mx-auto p-8 h-screen flex items-center justify-center"
         initial="hidden"
@@ -100,6 +93,7 @@ const AboutUs = () => {
           <ImageSlider2 />
         </motion.div>
       </motion.div>
+
     </div>
   );
 };
