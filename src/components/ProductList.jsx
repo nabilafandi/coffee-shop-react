@@ -23,14 +23,14 @@ const ProductList = () => {
       <h2 className="text-2xl font-bold capitalize font-mogena text-trippicalBlack">
         {category}
       </h2>
-      <ul className="grid grid-cols-3 gap-6 mt-6">
+      <ul className="grid grid-cols-3  mt-6 gap-2 w-4/2">
         {products.map((product) => (
           <li key={product.id} className="p-4 rounded-lg ">
             <NavLink
               to={`/shop/${category}/${product.id}`}
               className="text-blue-500"
             >
-              <div className="w-full aspect-square overflow-hidden rounded-md bg-gray-200  group-hover:opacity-75 ">
+              <div className="w-52 aspect-square overflow-hidden rounded-md bg-gray-200  group-hover:opacity-75 ">
                 <img
                   alt={product.imageAlt}
                   src={product.photo_md}

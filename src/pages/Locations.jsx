@@ -1,4 +1,4 @@
-import ImageSlider from "../components/ImageSlider";
+import ImageSlider from "../components/ImageSlider2";
 import { FaWhatsapp, FaMapMarkerAlt } from "react-icons/fa"; // Example icon from React Icons
 
 const images = [
@@ -24,7 +24,7 @@ const images = [
 const Locations = () => {
   return (
     <>
-      <ImageSlider images={images} />
+      <ImageSlider  />
       <div className=" pt-10 px-32 ">
         <h1 className="text-3xl font-bold font-mogena mb-7">
           Tripical Coffee Jakarta Timur

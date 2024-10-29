@@ -16,10 +16,11 @@ const ImageSlider = (props) => {
       autoPlaySpeed={1000}
       customTransition="transform 500ms "
       transitionDuration={100}
-      itemClass="h-48 w-100"
+      itemClass="h-96 w-100 object-cover"
     >
       {props.images.map((image, index) => (
-        <img src={image} key={index} />
+        <img src={image} key={index} className="h-96 w-full object-cover"  />
+        
       ))}
     </Carousel>
   );
