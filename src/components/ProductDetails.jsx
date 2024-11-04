@@ -3,12 +3,12 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import dummyProducts from "../data/dummyProducts";
 import CartPopup from "./CartPopup";
+import axios from "axios";
 
 import { Field, Label, Radio, RadioGroup } from "@headlessui/react";
 import { FaCheck } from "react-icons/fa6";
 import { CiSquarePlus, CiSquareMinus } from "react-icons/ci";
 import { HiOutlineShoppingBag } from "react-icons/hi";
-
 
 const QuantitySelector = ({
   initialQuantity = 1,
@@ -62,7 +62,7 @@ const ProductDetails = () => {
   const [selectedVariant, setSelectedVariant] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  
+
   useEffect(() => {
     // Find the product in the dummy data
     const categoryProducts = dummyProducts[category];
@@ -78,12 +78,32 @@ const ProductDetails = () => {
     setQuantity(newQuantity);
   };
 
-  const handleAddToCart = () => {
-    // if (!selectedVariant) {
-    //   alert("Please select a variant!");
-    //   return;
-    // }
-    setIsCartOpen(true)
+  const handleAddToCart = async () => {
+    if (!selectedVariant) {
+      alert("Please select a variant!");
+      return;
+    }
+    const itemsToAdd = [
+      { productId: productId, variant: selectedVariant, quantity },
+    ];
+    console.log(itemsToAdd)
+    try {
+      const apiUrl = import.meta.env.VITE_REACT_API_URL;
+      console.log(apiUrl)
+
+      const response = await axios.post(apiUrl + "/cart",{
+        userId: null, // or pass a valid user ID if needed
+        items: itemsToAdd,
+    }, {
+        withCredentials: true, // Ensure cookies are sent
+    });
+      console.log("Cart updated:", response.data);
+      setIsCartOpen(true); // Open the cart popup
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+      alert("Failed to add to cart. Please try again.");
+    }
+    setIsCartOpen(true);
   };
 
   const closeCartPopup = () => {
@@ -152,7 +172,7 @@ const ProductDetails = () => {
                 {product.variants.map((variant) => (
                   <Field key={variant.id} className="flex items-center gap-2">
                     <Radio
-                      value={variant.id}
+                      value={variant.name}
                       id={variant.id}
                       className="group flex size-5 items-center justify-center rounded-md border border-trippicalBlack bg-transparent data-[checked]:bg-trippicalBlack"
                     >
@@ -178,20 +198,19 @@ const ProductDetails = () => {
               <HiOutlineShoppingBag size={23} />
               <span> Add to Cart</span>
             </button>
-    
-    {/* Cart Popup */}
-    {isCartOpen && (
-      <CartPopup
-        onClose={closeCartPopup}
-        product={product}
-        selectedVariant={selectedVariant}
-        quantity={quantity}
-      />
-    )}
+
+            {/* Cart Popup */}
+            {isCartOpen && (
+              <CartPopup
+                onClose={closeCartPopup}
+                product={product}
+                selectedVariant={selectedVariant}
+                quantity={quantity}
+              />
+            )}
           </div>
         </div>
       </div>
-
 
       <div className="w-full py-16 ">
         <h2 className="text-3xl font-mogena text-trippicalBlack">

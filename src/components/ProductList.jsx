@@ -1,22 +1,50 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import dummyProducts from "../data/dummyProducts";
+import axios from "axios";
+// import dummyProducts from "../data/dummyProducts";
 
+const CLASSIFICATION_ID = {
+  drinks: 1107755,
+  bites: 1107774,
+  foodies: 1107418,
+  desserts: 1107419,
+};
 const ProductList = () => {
   const { category } = useParams(); // Get the category from the URL
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Set the products based on the category from the URL
-    if (dummyProducts[category]) {
-      setProducts(dummyProducts[category]);
-    }
-  }, [category]);
+    const apiUrl = import.meta.env.VITE_REACT_API_URL;
+    console.log("started useeffect", apiUrl);
+    console.log(CLASSIFICATION_ID[category]);
+    const fetchProducts = async () => {
+      setLoading(true);
+      setError(null);
 
-  if (!dummyProducts[category]) {
-    return <div>Category not found</div>; // Handle invalid category
-  }
+      try {
+        const response = await axios.get( apiUrl + `/products/classification/` + CLASSIFICATION_ID[category] );
+        // console.log(response.data.data)
+        setProducts(response.data.data.data); // Adjust based on API response structure
+      } catch (error) {
+        setError("Failed to fetch products");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProducts();
+  }, [category]);
+  console.log(products);
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
+  // useEffect(() => {
+  //   // Set the products based on the category from the URL
+  //   if (dummyProducts[category]) {
+  //     setProducts(dummyProducts[category]);
+  //   }
+  // }, [category]);
 
   return (
     <div>
