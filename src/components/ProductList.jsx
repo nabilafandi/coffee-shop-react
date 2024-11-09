@@ -26,7 +26,7 @@ const ProductList = () => {
 
       try {
         const response = await axios.get( apiUrl + `/products/classification/` + CLASSIFICATION_ID[category] );
-        // console.log(response.data.data)
+        console.log('respomnse', response)
         setProducts(response.data.data.data); // Adjust based on API response structure
       } catch (error) {
         setError("Failed to fetch products");

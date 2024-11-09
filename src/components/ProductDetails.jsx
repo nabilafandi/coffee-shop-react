@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import dummyProducts from "../data/dummyProducts";
 import CartPopup from "./CartPopup";
 import axios from "axios";
 
@@ -57,46 +56,55 @@ const QuantitySelector = ({
 };
 
 const ProductDetails = () => {
-  const { category, productId } = useParams();
+  const { productId } = useParams();
   const [product, setProduct] = useState(null);
   const [selectedVariant, setSelectedVariant] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
   useEffect(() => {
-    // Find the product in the dummy data
-    const categoryProducts = dummyProducts[category];
-    if (categoryProducts) {
-      const foundProduct = categoryProducts.find(
-        (p) => p.id === Number(productId)
-      );
-      setProduct(foundProduct);
-    }
-  }, [category, productId]);
+    const fetchProductDetails = async () => {
+      try {
+        const apiUrl = import.meta.env.VITE_REACT_API_URL;
+        const response = await axios.get(
+          apiUrl + "/products/" + Number(productId)
+        );
+        setProduct(response.data.data.data);
+      } catch (error) {
+        console.error("Error fetching product details:", error);
+      }
+    };
+    fetchProductDetails();
+  }, [productId]);
 
   const handleQuantityChange = (newQuantity) => {
     setQuantity(newQuantity);
   };
 
   const handleAddToCart = async () => {
+    console.log('selectedVariant', selectedVariant)
     if (!selectedVariant) {
       alert("Please select a variant!");
       return;
     }
     const itemsToAdd = [
-      { productId: productId, variant: selectedVariant, quantity },
+      { productId: selectedVariant, variant: selectedVariant, quantity },
     ];
-    console.log(itemsToAdd)
+    console.log(itemsToAdd);
     try {
       const apiUrl = import.meta.env.VITE_REACT_API_URL;
-      console.log(apiUrl)
+      console.log(apiUrl);
 
-      const response = await axios.post(apiUrl + "/cart",{
-        userId: null, // or pass a valid user ID if needed
-        items: itemsToAdd,
-    }, {
-        withCredentials: true, // Ensure cookies are sent
-    });
+      const response = await axios.post(
+        apiUrl + "/cart",
+        {
+          userId: null, // or pass a valid user ID if needed
+          items: itemsToAdd,
+        },
+        {
+          withCredentials: true, // Ensure cookies are sent
+        }
+      );
       console.log("Cart updated:", response.data);
       setIsCartOpen(true); // Open the cart popup
     } catch (error) {
@@ -169,10 +177,10 @@ const ProductDetails = () => {
                 onChange={setSelectedVariant}
                 aria-label="Variant"
               >
-                {product.variants.map((variant) => (
+                {product.variant.map((variant) => (
                   <Field key={variant.id} className="flex items-center gap-2">
                     <Radio
-                      value={variant.name}
+                      value={variant.id}
                       id={variant.id}
                       className="group flex size-5 items-center justify-center rounded-md border border-trippicalBlack bg-transparent data-[checked]:bg-trippicalBlack"
                     >

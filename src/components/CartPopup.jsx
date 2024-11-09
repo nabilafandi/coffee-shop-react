@@ -24,32 +24,15 @@ const CartPopup = ({ onClose, product, selectedVariant, quantity }) => {
 
   // Handle adding to cart as guest or after login
   const handleBuyAsGuest = async () => {
-    await addToCart(null);
+    await console.log('handleBuyAsGuest')
   };
   const handleLoginToBuy = async () => {
-    await console.log('logintoby')
+    await console.log('handleLoginToBuy')
   }
 
-  const addToCart = async (userId) => {
-    const items = [
-      {
-        productId: product.id,
-        quantity: quantity,
-      },
-    ];
 
-    try {
-      const apiUrl = import.meta.env.VITE_REACT_API_URL;
-      const response = await axios.post(apiUrl + "/cart", {
-        userId: userId,
-        items: items,
-      });
-      console.log("Cart updated successfully:", response.data);
-      onClose(); // Close the popup after adding to cart
-    } catch (error) {
-      console.error("Error updating cart:", error);
-    }
-  };
+
+  console.log('cart', cart)
 
   return (
     <div className="absolute inset-0 flex items-center justify-center z-50">
@@ -76,7 +59,7 @@ const CartPopup = ({ onClose, product, selectedVariant, quantity }) => {
                         <h3>
                           <a href={product.href}>{product.name}</a>
                         </h3>
-                        <p className="ml-4">{quantity}</p>
+                        <p className="ml-4">{product.quantity}</p>
                         <p className="ml-4">IDR {product.min_sell_price}</p>
                       </div>
                       <p className="mt-1 text-sm text-gray-500">

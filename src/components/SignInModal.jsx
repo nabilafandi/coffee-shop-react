@@ -1,3 +1,5 @@
+import { spinner } from "@material-tailwind/react";
+
 const SignInModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null; // Do not render if not open
 
