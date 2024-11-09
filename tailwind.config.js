@@ -29,5 +29,7 @@ export default withMT({
       }
     },
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar')
+  ],
 })
