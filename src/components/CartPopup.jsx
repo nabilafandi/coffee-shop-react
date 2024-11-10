@@ -1,38 +1,86 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import axios from "axios";
 
 const CartPopup = ({ onClose }) => {
-  const [cart, setCart] = useState(null);
+  const [cart, setCart] = useState({ items: [], subTotal: 0 });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const apiUrl = import.meta.env.VITE_REACT_API_URL;
 
+  // Fetch cart data on component mount
   useEffect(() => {
     const fetchCart = async () => {
+      setLoading(true);
+      setError(null);
       try {
-        const apiUrl = import.meta.env.VITE_REACT_API_URL;
-        const response = await axios.get(apiUrl + "/cart", {
+        const response = await axios.get(`${apiUrl}/cart`, {
           params: { userId: null },
           withCredentials: true,
         });
-        console.log("cart fetched", response.data)
+        console.log("Cart fetched:", response.data);
         setCart(response.data);
-
       } catch (error) {
         console.error("Error fetching cart:", error);
+        setError("Failed to load cart. Please try again.");
+      } finally {
+        setLoading(false);
       }
     };
     fetchCart();
-  }, []);
+  }, [apiUrl]);
 
+  // Handle "Buy as Guest" action
   const handleBuyAsGuest = async () => {
-    await console.log("handleBuyAsGuest");
-  };
-  const handleLoginToBuy = async () => {
-    await console.log("handleLoginToBuy");
+    try {
+      await axios.post(
+        `${apiUrl}/order`,
+        { items: cart.items },
+        { withCredentials: true }
+      );
+      alert("Order placed successfully!");
+      onClose();
+    } catch (error) {
+      console.error("Error buying as guest:", error);
+      alert("Failed to place order. Please try again.");
+    }
   };
 
-  console.log("cart", cart);
-  if (!cart) {
-    return <div>cart not found</div>;
-  }
+  // Placeholder for login action
+  const handleLoginToBuy = async () => {
+    console.log("handleLoginToBuy");
+  };
+
+  // Memoize the cart items list for better performance
+  const cartItems = useMemo(
+    () =>
+      cart.items.map((item) => (
+        <li key={item.productVariantId || item.productId} className="flex py-6 items-center">
+          <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+            <img
+              alt={item.productName}
+              src={item.imageUrl}
+              loading="lazy"
+              className="h-full w-full object-cover object-center"
+            />
+          </div>
+
+          <div className="ml-4 flex flex-1 flex-col">
+            <div className="flex justify-between text-base font-medium text-gray-900">
+              <h3>{item.productName}</h3>
+              <p className="ml-4">{item.quantity}</p>
+              <p className="ml-4">IDR {item.price}</p>
+            </div>
+            <p className="mt-1 text-sm text-gray-500">{item.variantName}</p>
+          </div>
+        </li>
+      )),
+    [cart.items]
+  );
+
+  // Render loading, error, or empty cart states
+  if (loading) return <div>Loading cart...</div>;
+  if (error) return <div>{error}</div>;
+  if (!cart.items.length) return <div>Your cart is empty.</div>;
 
   return (
     <div className="absolute inset-0 flex items-center justify-center z-50">
@@ -44,39 +92,12 @@ const CartPopup = ({ onClose }) => {
           <div>
             <div className="mb-5 max-h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-trippicalBlack scrollbar-track-offWhite">
               <ul role="list" className="-my-6 divide-y divide-gray-200">
-                {cart.items.map((item) => (
-                  <li key={item.productId} className="flex py-6 items-center">
-                    <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                      <img
-                        alt={item.productName}
-                        src={item.imageUrl}
-                        className="h-full w-full object-cover object-center"
-                      />
-                    </div>
-
-                    <div className="ml-4 flex flex-1 flex-col">
-                      <div>
-                        <div className="flex justify-between text-base font-medium text-gray-900">
-                          <h3>
-                            <a href={item.name}>{item.productName}</a>
-                          </h3>
-                          <p className="ml-4">{item.quantity}</p>
-                          <p className="ml-4">IDR {item.price}</p>
-                        </div>
-                        <p className="mt-1 text-sm text-gray-500">
-                          {item.variantName}
-                        </p>
-                      </div>
-                    </div>
-                  </li>
-                ))}
+                {cartItems}
               </ul>
             </div>
             <hr className="bg-trippicalBlack" />
             <div className="flex flex-row-reverse gap-5">
-              <div className="text-lg text-logoRed">
-                IDR {cart.subTotal}
-              </div>
+              <div className="text-lg text-logoRed">IDR {cart.subTotal}</div>
               <div className="text-lg font-bold text-trippicalBlack">
                 Subtotal
               </div>
@@ -85,14 +106,20 @@ const CartPopup = ({ onClose }) => {
               <button
                 type="button"
                 onClick={handleLoginToBuy}
-                className="text-white bg-logoRed font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2"
+                disabled={!cart.items.length}
+                className={`text-white bg-logoRed font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 ${
+                  !cart.items.length ? "opacity-50 cursor-not-allowed" : ""
+                }`}
               >
                 Log in to buy
               </button>
               <button
                 type="button"
                 onClick={handleBuyAsGuest}
-                className="text-white bg-logoRed font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2"
+                disabled={!cart.items.length}
+                className={`text-white bg-logoRed font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 ${
+                  !cart.items.length ? "opacity-50 cursor-not-allowed" : ""
+                }`}
               >
                 Buy as a guest
               </button>

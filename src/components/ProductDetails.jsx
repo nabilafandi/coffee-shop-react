@@ -40,20 +40,13 @@ const ProductDetails = () => {
       alert("Please select a variant!");
       return;
     }
-
-    // const itemsToAdd = [
-    //   {
-    //     productId: selectedVariant.id,
-    //     variant: selectedVariant,
-    //     quantity,
-    //   },
-    // ];
     console.log('seletecvariant', selectedVariant)
     const itemsToAdd = [
       {
         productName: product.name,
         variantName: selectedVariant.name,
-        productId: selectedVariant.id,
+        productId: product.id,
+        productVariantId: selectedVariant.id,
         quantity,
         isVariant: true,
         price: Number(selectedVariant.sell_price),

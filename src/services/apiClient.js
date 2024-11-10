@@ -1,9 +1,31 @@
-import axios from 'axios';
+import axios from "axios";
 
+const apiUrl = import.meta.env.VITE_REACT_API_URL;
 
-const apiClient = axios.create({
-    baseURL: import.meta.env.APP_API_URL || 'http://localhost:3000',
-    timeout: 10000,
-});
+// Fetch cart data
+export const fetchCart = async (userId = null) => {
+  try {
+    const response = await axios.get(`${apiUrl}/cart`, {
+      params: { userId },
+      withCredentials: true,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching cart:", error);
+    throw new Error("Failed to load cart");
+  }
+};
 
-export default apiClient;
+// Place order as a guest
+export const buyAsGuest = async (items) => {
+  try {
+    await axios.post(
+      `${apiUrl}/order`,
+      { items },
+      { withCredentials: true }
+    );
+  } catch (error) {
+    console.error("Error buying as guest:", error);
+    throw new Error("Failed to place order");
+  }
+};
