@@ -9,6 +9,7 @@ import ProductList from "./components/ProductList.jsx";
 import ProductDetails from "./components/ProductDetails.jsx";
 import AboutUs from "./pages/AboutUs.jsx";
 import Test from "./pages/test.jsx";
+import Cart from "./pages/Cart.jsx"
 
 const Router = createBrowserRouter([
   {
@@ -28,6 +29,7 @@ const Router = createBrowserRouter([
           { path: ":category/:productId", element: <ProductDetails /> },
         ],
       },
+      { path: "/cart", element: <Cart /> },
       { path: "/test", element: <Test /> },
     ],
   },

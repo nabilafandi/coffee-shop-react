@@ -7,12 +7,15 @@ import QuantitySelector from "./QuantitySelector";
 import { Field, Label, Radio, RadioGroup } from "@headlessui/react";
 import { FaCheck } from "react-icons/fa6";
 import { HiOutlineShoppingBag } from "react-icons/hi";
+import { addToCart } from "../services/apiClient";
 
 // Utility function to format prices
 const formatPrice = (price) => Math.round(price / 1000);
 
 const ProductDetails = () => {
   const { productId } = useParams();
+  const [loading, setLoading] = useState(false);
+
   const [product, setProduct] = useState(null);
   const [selectedVariant, setSelectedVariant] = useState(null);
   const [quantity, setQuantity] = useState(1);
@@ -40,7 +43,6 @@ const ProductDetails = () => {
       alert("Please select a variant!");
       return;
     }
-    console.log('seletecvariant', selectedVariant)
     const itemsToAdd = [
       {
         productName: product.name,
@@ -51,22 +53,18 @@ const ProductDetails = () => {
         isVariant: true,
         price: Number(selectedVariant.sell_price),
         imageUrl: product.photo_xs,
-      }
+      },
     ];
-
-    console.log("itemstoad", itemsToAdd);
+    if (loading) return;
+    setLoading(true);
     try {
-      const apiUrl = import.meta.env.VITE_REACT_API_URL;
-      const response = await axios.post(
-        `${apiUrl}/cart`,
-        { userId: null, items: itemsToAdd },
-        { withCredentials: true }
-      );
-      console.log("Cart updated:", response.data);
+      await addToCart(itemsToAdd);
       setIsCartOpen(true);
     } catch (error) {
       console.error("Error adding to cart:", error);
       alert("Failed to add to cart. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -75,7 +73,6 @@ const ProductDetails = () => {
   if (!product) {
     return <div>Product not found</div>;
   }
-  console.log("productdfetail", product);
   return (
     <div className="flex flex-col max-w-2xl">
       {/* Product Images */}
@@ -102,6 +99,7 @@ const ProductDetails = () => {
           <div>
             <button
               onClick={handleAddToCart}
+              disabled={loading}
               className="p-2 w-40 space-x-3 text-trippicalBlack flex border border-trippicalBlack rounded-full align-middle justify-center"
             >
               <HiOutlineShoppingBag size={23} />

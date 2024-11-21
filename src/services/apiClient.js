@@ -19,13 +19,41 @@ export const fetchCart = async (userId = null) => {
 // Place order as a guest
 export const buyAsGuest = async (items) => {
   try {
-    await axios.post(
+    const response = await axios.post(
       `${apiUrl}/order`,
       { items },
       { withCredentials: true }
     );
+    return response.data
   } catch (error) {
     console.error("Error buying as guest:", error);
     throw new Error("Failed to place order");
   }
 };
+
+export const fetchProductDetails = async (productId) => {
+    try {
+      const response = await axios.get(`${apiUrl}/product/${productId}`, {
+        withCredentials: true,
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching product details:", error);
+      throw new Error("Failed to load product details");
+    }
+  };
+  
+  // Add product to cart
+  export const addToCart = async (itemsToAdd) => {
+    try {
+      const response = await axios.post(
+        `${apiUrl}/cart`,
+        { userId: null, items: itemsToAdd },
+        { withCredentials: true }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error adding product to cart:", error);
+      throw new Error("Failed to add product to cart");
+    }
+  };

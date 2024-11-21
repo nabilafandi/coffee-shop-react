@@ -12,7 +12,8 @@ export default withMT({
         primary: '#3490dc',
         secondary: '#41b941',
         danger: '#e74c3c',
-        gray: {800:'#434040',50:'#D9D9D9'},
+        gray: {800:'#434040',50:'#D9D9D9', 200:'#DED5C5'},
+
         red: {800:'#FF1717'},
 
         offWhite: '#F0E8DB',

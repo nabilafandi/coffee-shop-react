@@ -1,56 +1,32 @@
 import { useEffect, useState, useMemo } from "react";
-import axios from "axios";
+import { fetchCart, buyAsGuest } from "../services/apiClient";
+import { useNavigate } from "react-router-dom"; 
 
 const CartPopup = ({ onClose }) => {
   const [cart, setCart] = useState({ items: [], subTotal: 0 });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const apiUrl = import.meta.env.VITE_REACT_API_URL;
+  const navigate = useNavigate();
 
-  // Fetch cart data on component mount
   useEffect(() => {
-    const fetchCart = async () => {
+    const loadCart = async () => {
       setLoading(true);
       setError(null);
       try {
-        const response = await axios.get(`${apiUrl}/cart`, {
-          params: { userId: null },
-          withCredentials: true,
-        });
-        console.log("Cart fetched:", response.data);
-        setCart(response.data);
-      } catch (error) {
-        console.error("Error fetching cart:", error);
-        setError("Failed to load cart. Please try again.");
+        const data = await fetchCart();
+        setCart(data);
+      } catch (err) {
+        setError(err.message);
       } finally {
         setLoading(false);
       }
     };
-    fetchCart();
-  }, [apiUrl]);
+    loadCart();
+  }, []);
 
-  // Handle "Buy as Guest" action
-  const handleBuyAsGuest = async () => {
-    try {
-      await axios.post(
-        `${apiUrl}/order`,
-        { items: cart.items },
-        { withCredentials: true }
-      );
-      alert("Order placed successfully!");
-      onClose();
-    } catch (error) {
-      console.error("Error buying as guest:", error);
-      alert("Failed to place order. Please try again.");
-    }
-  };
-
-  // Placeholder for login action
-  const handleLoginToBuy = async () => {
-    console.log("handleLoginToBuy");
-  };
-
-  // Memoize the cart items list for better performance
+  const handleCheckout = () => {
+    navigate("/cart")
+  }
   const cartItems = useMemo(
     () =>
       cart.items.map((item) => (
@@ -63,7 +39,6 @@ const CartPopup = ({ onClose }) => {
               className="h-full w-full object-cover object-center"
             />
           </div>
-
           <div className="ml-4 flex flex-1 flex-col">
             <div className="flex justify-between text-base font-medium text-gray-900">
               <h3>{item.productName}</h3>
@@ -77,7 +52,6 @@ const CartPopup = ({ onClose }) => {
     [cart.items]
   );
 
-  // Render loading, error, or empty cart states
   if (loading) return <div>Loading cart...</div>;
   if (error) return <div>{error}</div>;
   if (!cart.items.length) return <div>Your cart is empty.</div>;
@@ -103,7 +77,7 @@ const CartPopup = ({ onClose }) => {
               </div>
             </div>
             <div>
-              <button
+              {/* <button
                 type="button"
                 onClick={handleLoginToBuy}
                 disabled={!cart.items.length}
@@ -122,6 +96,15 @@ const CartPopup = ({ onClose }) => {
                 }`}
               >
                 Buy as a guest
+              </button> */}
+              <button
+                type="button"
+                onClick={handleCheckout}
+                className={`text-white bg-logoRed font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 ${
+                  !cart.items.length ? "opacity-50 cursor-not-allowed" : ""
+                }`}
+              >
+                Checkout
               </button>
               <button
                 type="button"

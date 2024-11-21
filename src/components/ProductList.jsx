@@ -18,16 +18,13 @@ const ProductList = () => {
 
   useEffect(() => {
     const apiUrl = import.meta.env.VITE_REACT_API_URL;
-    console.log("started useeffect", apiUrl);
-    console.log(CLASSIFICATION_ID[category]);
     const fetchProducts = async () => {
       setLoading(true);
       setError(null);
 
       try {
         const response = await axios.get( apiUrl + `/products/classification/` + CLASSIFICATION_ID[category] );
-        console.log('respomnse', response)
-        setProducts(response.data.data.data); // Adjust based on API response structure
+        setProducts(response.data.data.data); 
       } catch (error) {
         setError("Failed to fetch products");
       } finally {
@@ -36,15 +33,8 @@ const ProductList = () => {
     };
     fetchProducts();
   }, [category]);
-  console.log(products);
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
-  // useEffect(() => {
-  //   // Set the products based on the category from the URL
-  //   if (dummyProducts[category]) {
-  //     setProducts(dummyProducts[category]);
-  //   }
-  // }, [category]);
 
   return (
     <div>
