@@ -1,7 +1,33 @@
 import { motion } from "framer-motion";
 import ImageSlider2 from "../components/ImageSlider2";
+import { fetchAboutUsData } from "../services/api";
+import { useEffect, useState } from "react";
+
+
 
 const AboutUs = () => {
+  const [aboutData, setAboutData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const data = await fetchAboutUsData();
+        setAboutData(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    getData();
+  }, []);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
+
   const fadeIn = {
     hidden: { opacity: 0, y: 50 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
@@ -44,15 +70,17 @@ const AboutUs = () => {
           <motion.div
             className="bg-gray-200 h-96"
             variants={fadeIn}
-          ></motion.div>
+          >
+            <img src={aboutData.title_image_url} className="h-full w-full object-cover" />
+          </motion.div>
           <motion.div
             className="flex items-center align-middle"
             variants={fadeIn}
           >
             <div>
-              <p className="text-lg font-bold mb-4">Tripical Coffee</p>
+              <p className="text-lg font-bold mb-4">{aboutData.company_name}</p>
               <p className="text-4xl font-mogena">
-                Your local haven for coffee and people
+                {aboutData.tagline}
               </p>
             </div>
           </motion.div>
@@ -67,11 +95,7 @@ const AboutUs = () => {
         variants={fadeIn}
       >
         <p className="text-2xl">
-          Tripical Coffee is more than just a place to grab a cup of joe. We're
-          a community hub where friends meet, ideas spark, and the aroma of
-          freshly brewed coffee fills the air. With three years of experience in
-          the coffee industry, we've perfected our craft to bring you the finest
-          coffee beverages and a welcoming atmosphere.
+        {aboutData.description}
         </p>
       </motion.div>
 
@@ -90,7 +114,7 @@ const AboutUs = () => {
           <p className="text-4xl font-mogena">Our past events</p>
         </motion.div>
         <motion.div variants={fadeIn}>
-          <ImageSlider2 />
+          <ImageSlider2 images={aboutData.event_images}/>
         </motion.div>
       </motion.div>
 

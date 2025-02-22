@@ -1,16 +1,7 @@
 import { useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
 
-const images = [
-  "src/assets/photos/backyard.png",
-  "src/assets/photos/cup.png",
-  "src/assets/photos/cup2.png",
-  "src/assets/photos/facade.png",
-  "src/assets/photos/machine.png",
-  "src/assets/photos/outfit.png",
-];
-
-const ImageSlider = () => {
+const ImageSlider = ({images}) => {
   const controls = useAnimation();
   const slideWidth = 256; // Adjust this width based on your image's display width
   const totalWidth = slideWidth * images.length;
@@ -33,11 +24,11 @@ const ImageSlider = () => {
   return (
     <div className="overflow-hidden w-full relative">
       <motion.div className="flex" animate={controls}>
-        {images.concat(images).map((image, index) => (
-          <div key={index} className="w-64 h-96 flex-shrink-0">
+        {images.concat(images).map((image) => (
+          <div key={image.id} className="w-64 h-96 flex-shrink-0">
             <img
-              src={image}
-              alt={`Slide ${index}`}
+              src={image.url}
+              alt={`Slide ${image.id}`}
               className="w-full h-full object-cover"
             />
           </div>
