@@ -10,6 +10,8 @@ import ProductDetails from "./components/ProductDetails.jsx";
 import AboutUs from "./pages/AboutUs.jsx";
 import Test from "./pages/test.jsx";
 import Cart from "./pages/Cart.jsx"
+import Login from "./pages/Login.jsx";
+
 
 const Router = createBrowserRouter([
   {
@@ -31,6 +33,7 @@ const Router = createBrowserRouter([
       },
       { path: "/cart", element: <Cart /> },
       { path: "/test", element: <Test /> },
+      { path: "/login", element: <Login /> },
     ],
   },
 ]);

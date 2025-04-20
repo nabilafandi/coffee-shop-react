@@ -7,4 +7,13 @@ export default defineConfig({
   rules: {
     "react/prop-types": 0,
   },
+  server: {
+    proxy: {
+      "/odoo-api": {
+        target: "http://localhost:6903",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/odoo-api/, ""),
+      },
+    },
+  },
 });
