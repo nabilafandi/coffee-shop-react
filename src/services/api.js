@@ -62,3 +62,25 @@ export const loginToOdoo = async (email, password) => {
     throw new Error("Failed to authenticate with Odoo");
   }
 };
+
+export const checkOdooSession = async () => {
+  const odooUrl = "/odoo-api";
+  try {
+    const response = await axios.post(
+      `${odooUrl}/web/session/get_session_info`,
+      {},
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (response.data.error) {
+      return null;
+    }
+    return response.data.result;
+  } catch (error) {
+    console.error("Error checking Odoo session:", error);
+    return null;
+  }
+};

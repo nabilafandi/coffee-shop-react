@@ -1,18 +1,24 @@
 /* eslint-disable react/prop-types */
 "use client";
-
-import { useState } from "react";
+import { checkOdooSession } from "../services/api";
+import { useEffect, useState } from "react";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import {
   Bars3Icon,
 
   // XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { FaInstagram } from "react-icons/fa";
+import { FaInstagram, FaUserCircle } from "react-icons/fa";
+import { PiHandbag } from "react-icons/pi";
 
-import {useLocation,  NavLink } from "react-router-dom";
+import { useLocation, NavLink } from "react-router-dom";
 
-const navigations = [ { id: "about", string: "About us", to: "/about", }, { id: "shop", string: "Shop", to: "/shop", }, { id: "locations", string: "Locations", to: "/locations", }, { id: "promo", string: "Promo", to: "/promo", }, ];
+const navigations = [
+  { id: "about", string: "About us", to: "/about" },
+  { id: "shop", string: "Shop", to: "/shop" },
+  { id: "locations", string: "Locations", to: "/locations" },
+  { id: "promo", string: "Promo", to: "/promo" },
+];
 const NavigationLinks = ({ isDialog = false }) => {
   const location = useLocation();
 
@@ -28,7 +34,7 @@ const NavigationLinks = ({ isDialog = false }) => {
             to={item.to}
             className={({ isActive }) =>
               isActive
-                ? "text-sm font-bold leading-6 text-logoRed " 
+                ? "text-sm font-bold leading-6 text-logoRed "
                 : `text-sm  leading-6  ${
                     isHomePage ? "text-trippicalWhite" : "text-trippicalBlack"
                   }`
@@ -60,6 +66,26 @@ const NavigationLinks = ({ isDialog = false }) => {
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
+
+  useEffect(() => {
+    const checkSession = async () => {
+      try {
+        const sessionInfo = await checkOdooSession();
+        console.log("Session Info:", sessionInfo);
+        // Check if the user is logged in based on the sessionInfo
+        setIsLoggedIn(sessionInfo !== null); // Adjust this based on the actual response structure
+      } catch (error) {
+        console.error("Error checking Odoo session:", error);
+        setIsLoggedIn(false); // Assume not logged in if there's an error
+      }
+    };
+
+    checkSession();
+  }, []);
+
+  const odooLoginUrl = "http://localhost:6903/web/login";
+  const userProfileUrl = "http://localhost:6903/my/home";
 
   return (
     <header className="bg-transparent  inset-x-0 top-0  z-50">
@@ -88,9 +114,27 @@ export default function Navbar() {
         </div>
 
         <NavigationLinks isDialog:false />
-        <div className="lg:flex lg:flex-1 lg:justify-end">
+        <div className="lg:flex lg:flex-1 lg:justify-end space-x-4">
+          <a
+            href={isLoggedIn ? userProfileUrl : odooLoginUrl}
+            className="text-sm font-semibold leading-6 text-logoRed"
+          >
+            <div className="flex items-center justify-center h-6 w-6">
+              <FaUserCircle aria-hidden="true" className="h-full w-full" />
+            </div>
+          </a>
+          <a
+            href="cart"
+            className="text-sm font-semibold leading-6 text-logoRed"
+          >
+            <div className="flex items-center justify-center h-6 w-6">
+              <PiHandbag aria-hidden="true" className="h-full w-full" />
+            </div>
+          </a>
           <a href="#" className="text-sm font-semibold leading-6 text-logoRed">
-            <FaInstagram aria-hidden="true" className="h-6 w-6" />
+            <div className="flex items-center justify-center h-6 w-6">
+              <FaInstagram aria-hidden="true" className="h-full w-full" />
+            </div>
           </a>
         </div>
       </nav>

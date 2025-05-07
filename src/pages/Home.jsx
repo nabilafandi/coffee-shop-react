@@ -30,7 +30,7 @@ function Home() {
     <div>
       <div
         className="absolute top-0 w-full -z-10 h-screen bg-cover bg-center flex items-center justify-center"
-        style={{ backgroundImage: `url(${data.background_image})` }}
+        style={{ backgroundImage: `url(${data.background_image}?v=${Date.now()})` }}
       >
         <div className="py-32">
           <div className="flex flex-col items-center justify-center ">

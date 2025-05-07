@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiUrl = import.meta.env.VITE_REACT_API_URL;
+const apiUrl = '/odoo-api';
 
 // Fetch cart data
 export const fetchCart = async (userId = null) => {
