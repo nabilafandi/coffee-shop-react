@@ -9,6 +9,7 @@ export const fetchCart = async (userId = null) => {
       params: { userId },
       withCredentials: true,
     });
+    console.log("Cart response:", response.data);
     return response.data;
   } catch (error) {
     console.error("Error fetching cart:", error);

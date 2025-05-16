@@ -37,8 +37,8 @@ const ProductDetails = () => {
 
   const handleQuantityChange = (newQuantity) => setQuantity(newQuantity);
   const handleAddToCart = async () => {
-    if (!selectedVariant) {
-      alert("Please select a variant!");
+    if (Object.keys(selectedVariant).length !== data.attributes.length) {
+      alert("Please select a variant for each option!");
       return;
     }
     const itemsToAdd = [
@@ -85,8 +85,8 @@ const ProductDetails = () => {
             selectedVariant={selectedVariant}
             onVariantChange={setSelectedVariant}
           />
-{/*           
-          <QuantitySelector onQuantityChange={handleQuantityChange} />
+          
+          {/* <QuantitySelector onQuantityChange={handleQuantityChange} /> */}
 
           <div>
             <button
@@ -94,7 +94,7 @@ const ProductDetails = () => {
               disabled={loading}
               className="p-2 w-40 space-x-3 text-trippicalBlack flex border border-trippicalBlack rounded-full align-middle justify-center"
             >
-              <HiOutlineShoppingBag size={23} />
+              {/* <HiOutlineShoppingBag size={23} /> */}
               <span> Add to Cart</span>
             </button>
             {isCartOpen && (
@@ -103,7 +103,7 @@ const ProductDetails = () => {
                 selectedVariant={selectedVariant}
               />
             )}
-          </div> */}
+          </div>
         </div>
       </div>
 
@@ -157,15 +157,19 @@ const ProductInfo = ({ product }) => (
 const VariantSelector = ({ variants, selectedVariant, onVariantChange }) => (
   <div>
     <h3 className="text-sm font-bold">Choose a variant:</h3>
-    <div className="mt-2 grid grid-cols-2 gap-2">
-      <RadioGroup
-        value={selectedVariant}
-        onChange={onVariantChange}
-        aria-label="Variant"
-      >
-        {variants?.map((variant) => (
-          <div key={variant.id}>
-            <p> {variant.name}</p>
+    <div className="mt-2 grid grid-cols-1 gap-2"> {/* Modified grid-cols-2 to grid-cols-1 */}
+      {variants?.map((variant) => (
+        <div key={variant.id}>
+          <p> {variant.name}</p>
+          <RadioGroup
+            value={selectedVariant?.[variant.id] || null} // Use optional chaining and default to null
+            onChange={(value) => {
+              // Create a copy of the selectedVariant and update only the current variant
+              const newSelectedVariant = { ...selectedVariant, [variant.id]: value };
+              onVariantChange(newSelectedVariant);
+            }}
+            aria-label={variant.name}
+          >
             {variant.values?.map((value) => (
               <Field key={value.id} className="flex items-center gap-2">
                 <Radio
@@ -178,9 +182,9 @@ const VariantSelector = ({ variants, selectedVariant, onVariantChange }) => (
                 <Label htmlFor={value.id}>{value.name}</Label>
               </Field>
             ))}
-          </div>
-        ))}
-      </RadioGroup>
+          </RadioGroup>
+        </div>
+      ))}
     </div>
   </div>
 );
