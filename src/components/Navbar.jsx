@@ -72,7 +72,7 @@ export default function Navbar() {
     const checkSession = async () => {
       try {
         const sessionInfo = await checkOdooSession();
-        console.log("Session Info:", sessionInfo);
+        console.log("Navbar Session Info:", sessionInfo);
         // Check if the user is logged in based on the sessionInfo
         setIsLoggedIn(sessionInfo !== null); // Adjust this based on the actual response structure
       } catch (error) {

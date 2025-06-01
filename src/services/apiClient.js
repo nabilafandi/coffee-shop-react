@@ -5,9 +5,8 @@ const apiUrl = '/odoo-api';
 // Fetch cart data
 export const fetchCart = async (userId = null) => {
   try {
-    const response = await axios.get(`${apiUrl}/cart`, {
-      params: { userId },
-      withCredentials: true,
+    console.log("Fetching cart for userId:", userId);
+    const response = await axios.get(`${apiUrl}/api/cart/view`, {
     });
     console.log("Cart response:", response.data);
     return response.data;

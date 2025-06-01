@@ -12,7 +12,7 @@ const Login = () => {
     e.preventDefault();
     try {
         const sessionInfo = await loginToOdoo(email, password); // Use the loginToOdoo API
-        console.log("Session Info:", sessionInfo); // Debugging line
+        console.log("Login Session Info:", sessionInfo); // Debugging line
         localStorage.setItem("authToken", sessionInfo.session_id); // Save session ID to localStorage
         navigate("/"); // Redirect to the home page after login
       } catch (err) {
