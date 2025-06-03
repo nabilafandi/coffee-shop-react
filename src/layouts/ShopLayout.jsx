@@ -14,8 +14,12 @@ function ShopSidebar() {
     const getData = async () => {
       try {
         const data = await fetchCategoryData();
+        if (data.length === 0) {
+          throw new Error("No categories found");
+        }
         setData(data);
       } catch (err) {
+        console.error("Error fetching category data:", err);
         setError(err.message);
       } finally {
         setLoading(false);
