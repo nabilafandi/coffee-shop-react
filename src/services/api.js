@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = import.meta.env.VITE_REACT_API_URL; // Use environment variables
+const API_BASE_URL = '/odoo-api'; // Use environment variables
 
 export const fetchAboutUsData = async () => {
   try {
