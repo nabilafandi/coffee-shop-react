@@ -27,7 +27,6 @@ function Promo() {
     <>
       <div className="bg-gray-50 text-center flex items-center justify-center h-64">
         <img src={data.banner_image} className="h-full w-full object-cover" />
-        {/* <p className="text-3xl">Banner isinya promo</p> */}
       </div>
       <div className="flex flex-row justify-center gap-9 p-8 ">
         {data.promo_lines.map((promo) => (
