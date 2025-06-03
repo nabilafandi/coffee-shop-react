@@ -29,6 +29,9 @@ function Promo() {
         <img src={data.banner_image} className="h-full w-full object-cover" />
       </div>
       <div className="flex flex-row justify-center gap-9 p-8 ">
+        {data.promo_lines.length === 0 && (
+          <p>No Promo Available</p>
+        )}
         {data.promo_lines.map((promo) => (
           <div className="flex flex-col rounded overflow-hidden shadow-lg " key={promo.id}>
             <img

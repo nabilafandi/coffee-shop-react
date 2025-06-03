@@ -15,7 +15,7 @@ function ShopSidebar() {
       try {
         const data = await fetchCategoryData();
         if (data.length === 0) {
-          throw new Error("No categories found");
+          throw new Error("No categories has been added yet.");
         }
         setData(data);
       } catch (err) {
@@ -30,7 +30,7 @@ function ShopSidebar() {
   }, []);
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+  if (error) return <p>{error}</p>;
 
   const toggleExpand = (id) => {
     setExpanded((prev) => ({ ...prev, [id]: !prev[id] }));
