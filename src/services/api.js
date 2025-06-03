@@ -1,7 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = '/odoo-api'; // Use environment variables
-
+const API_BASE_URL = '/odoo-api'; 
 export const fetchAboutUsData = async () => {
   try {
     const response = await axios.get(`${API_BASE_URL}/api/about-us`);

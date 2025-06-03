@@ -113,9 +113,15 @@ const AboutUs = () => {
           <p className="text-lg font-bold mb-1">Relive The Moment</p>
           <p className="text-4xl font-mogena">Our past events</p>
         </motion.div>
-        <motion.div variants={fadeIn}>
-          <ImageSlider2 images={aboutData.event_images}/>
-        </motion.div>
+
+        {aboutData.event_images.length > 0 && (
+          <motion.div
+            className="flex items-center justify-center"
+            variants={fadeIn}
+          >
+            <p className="text-lg font-bold mb-1">Swipe to see more</p>
+          </motion.div>
+        )}
       </motion.div>
 
     </div>
