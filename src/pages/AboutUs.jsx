@@ -119,7 +119,6 @@ const AboutUs = () => {
             className="flex items-center justify-center"
             variants={fadeIn}
           >
-            <p className="text-lg font-bold mb-1">Swipe to see more</p>
           </motion.div>
         )}
       </motion.div>
