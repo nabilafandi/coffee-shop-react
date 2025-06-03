@@ -4,7 +4,7 @@ const API_BASE_URL = import.meta.env.VITE_REACT_API_URL; // Use environment vari
 
 export const fetchCategoryData = async () => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/product/category`);
+    const response = await axios.get(`${API_BASE_URL}/api/product/category`);
     return response.data;
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -13,7 +13,7 @@ export const fetchCategoryData = async () => {
 };
 export const fetchProductListData = async (category) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/product/category/${category}`);
+    const response = await axios.get(`${API_BASE_URL}/api/product/category/${category}`);
     return response.data;
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -22,7 +22,7 @@ export const fetchProductListData = async (category) => {
 };
 export const fetchProductDetailsData = async (product_id) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/product/${product_id}`);
+    const response = await axios.get(`${API_BASE_URL}/api/product/${product_id}`);
     return response.data;
   } catch (error) {
     console.error("Error fetching data:", error);

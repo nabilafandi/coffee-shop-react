@@ -4,7 +4,7 @@ const API_BASE_URL = import.meta.env.VITE_REACT_API_URL; // Use environment vari
 
 export const fetchAboutUsData = async () => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/about-us`);
+    const response = await axios.get(`${API_BASE_URL}/api/about-us`);
     return response.data;
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -13,7 +13,7 @@ export const fetchAboutUsData = async () => {
 };
 export const fetchHomeData = async () => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/home`);
+    const response = await axios.get(`${API_BASE_URL}/api/home`);
     return response.data;
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -22,7 +22,7 @@ export const fetchHomeData = async () => {
 };
 export const fetchLocationData = async () => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/location`);
+    const response = await axios.get(`${API_BASE_URL}/api/location`);
     return response.data;
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -31,7 +31,7 @@ export const fetchLocationData = async () => {
 };
 export const fetchPromoData = async () => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/promo`);
+    const response = await axios.get(`${API_BASE_URL}/api/promo`);
     return response.data;
   } catch (error) {
     console.error("Error fetching data:", error);
