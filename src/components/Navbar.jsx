@@ -68,21 +68,21 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
 
-  useEffect(() => {
-    const checkSession = async () => {
-      try {
-        const sessionInfo = await checkOdooSession();
-        console.log("Navbar Session Info:", sessionInfo);
-        // Check if the user is logged in based on the sessionInfo
-        setIsLoggedIn(sessionInfo !== null); // Adjust this based on the actual response structure
-      } catch (error) {
-        console.error("Error checking Odoo session:", error);
-        setIsLoggedIn(false); // Assume not logged in if there's an error
-      }
-    };
+  // useEffect(() => {
+  //   const checkSession = async () => {
+  //     try {
+  //       const sessionInfo = await checkOdooSession();
+  //       console.log("Navbar Session Info:", sessionInfo);
+  //       // Check if the user is logged in based on the sessionInfo
+  //       setIsLoggedIn(sessionInfo !== null); // Adjust this based on the actual response structure
+  //     } catch (error) {
+  //       console.error("Error checking Odoo session:", error);
+  //       setIsLoggedIn(false); // Assume not logged in if there's an error
+  //     }
+  //   };
 
-    checkSession();
-  }, []);
+  //   checkSession();
+  // }, []);
 
   const odooLoginUrl = "http://localhost:6903/web/login";
   const userProfileUrl = "http://localhost:6903/my/home";
