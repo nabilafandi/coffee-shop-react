@@ -36,7 +36,7 @@ const ProductList = () => {
         <div className="w-52 aspect-square overflow-hidden rounded-md bg-gray-200  group-hover:opacity-75 ">
           <img
             alt={product.name}
-            src={product.images[0].image_url}
+            src={product.images[0]?.image_url}
             className="h-full w-full object-cover object-center "
           />
         </div>

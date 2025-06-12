@@ -3,7 +3,8 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Field, Label, Radio, RadioGroup } from "@headlessui/react";
 import { FaCheck } from "react-icons/fa6";
-import { addToCart } from "../services/apiClient";
+import { addCartItem } from "../services/cartApi";
+
 import { fetchProductDetailsData } from "../services/apiProduct";
 
 // Utility function to format prices
@@ -35,35 +36,13 @@ const ProductDetails = () => {
     getData();
   }, []);
 
-  const handleQuantityChange = (newQuantity) => setQuantity(newQuantity);
   const handleAddToCart = async () => {
-    if (Object.keys(selectedVariant).length !== data.attributes.length) {
-      alert("Please select a variant for each option!");
-      return;
-    }
-    const itemsToAdd = [
-      {
-        productName: product.name,
-        variantName: selectedVariant.name,
-        productId: product.id,
-        productVariantId: selectedVariant.id,
-        quantity,
-        isVariant: true,
-        price: Number(selectedVariant.sell_price),
-        imageUrl: product.photo_xs,
-      },
-    ];
-    if (loading) return;
-    setLoading(true);
-    try {
-      await addToCart(itemsToAdd);
-      setIsCartOpen(true);
-    } catch (error) {
-      console.error("Error adding to cart:", error);
-      alert("Failed to add to cart. Please try again.");
-    } finally {
-      setLoading(false);
-    }
+    console.log("dataa adtcart:", data);
+    if (Object.keys(selectedVariant).length !== data.attributes.length) { alert("Please select a variant for each option!"); return; }
+    console.log('selectedVariant', selectedVariant)
+    const selectedValueIds = Object.values(selectedVariant);
+    console.log('selectedValueIds', selectedValueIds)
+    await addCartItem(null, productId ,selectedValueIds, quantity);
   };
 
   const closeCartPopup = () => setIsCartOpen(false);
@@ -85,7 +64,7 @@ const ProductDetails = () => {
             selectedVariant={selectedVariant}
             onVariantChange={setSelectedVariant}
           />
-          
+
           {/* <QuantitySelector onQuantityChange={handleQuantityChange} /> */}
 
           <div>
@@ -124,16 +103,21 @@ const ProductDetails = () => {
 
 const ProductImageGallery = ({ images }) => (
   <>
-    <div>
+    <div >
       <img
         className="h-auto w-full object-cover object-center aspect-square rounded-lg"
-        src={images[0].image_url}
+        src={images[0]?.image_url || "http://localhost:6903/web/image/product.image/"} 
+        alt={images[0]?.image_url ? "Product Image" : "No Image Available"} 
       />
     </div>
     <div className="grid grid-cols-3 gap-4">
       {images.map((image) => (
         <div key={image.id}>
-          <img className="h-auto w-full object-cover object-center aspect-square rounded-lg" src={image.image_url} alt="Product Image" />
+          <img
+            className="h-auto w-full object-cover object-center aspect-square rounded-lg"
+            src={image.image_url || "http://localhost:6903/web/image/product.image"} 
+            alt={image.image_url ? "Product Image" : "No Image Available"} 
+          />
         </div>
       ))}
     </div>
@@ -153,19 +137,20 @@ const ProductInfo = ({ product }) => (
   </div>
 );
 
-// Variant Selector component
 const VariantSelector = ({ variants, selectedVariant, onVariantChange }) => (
   <div>
     <h3 className="text-sm font-bold">Choose a variant:</h3>
-    <div className="mt-2 grid grid-cols-1 gap-2"> {/* Modified grid-cols-2 to grid-cols-1 */}
+    <div className="mt-2 grid grid-cols-1 gap-2">
       {variants?.map((variant) => (
         <div key={variant.id}>
-          <p> {variant.name}</p>
+          <p>{variant.name}</p>
           <RadioGroup
-            value={selectedVariant?.[variant.id] || null} // Use optional chaining and default to null
-            onChange={(value) => {
-              // Create a copy of the selectedVariant and update only the current variant
-              const newSelectedVariant = { ...selectedVariant, [variant.id]: value };
+            value={selectedVariant?.[variant.id] || null}
+            onChange={(valueId) => {
+              const newSelectedVariant = {
+                ...selectedVariant,
+                [variant.id]: valueId, // store value ID instead of name
+              };
               onVariantChange(newSelectedVariant);
             }}
             aria-label={variant.name}
@@ -173,13 +158,13 @@ const VariantSelector = ({ variants, selectedVariant, onVariantChange }) => (
             {variant.values?.map((value) => (
               <Field key={value.id} className="flex items-center gap-2">
                 <Radio
-                  value={value.name}
-                  id={value.id}
+                  value={value.id}
+                  id={`${variant.id}-${value.id}`}
                   className="group flex items-center justify-center rounded-md border border-trippicalBlack bg-transparent data-[checked]:bg-trippicalBlack"
                 >
                   <FaCheck className="invisible rounded-sm text-offWhite text-xs group-data-[checked]:visible" />
                 </Radio>
-                <Label htmlFor={value.id}>{value.name}</Label>
+                <Label htmlFor={`${variant.id}-${value.id}`}>{value.name}</Label>
               </Field>
             ))}
           </RadioGroup>
@@ -188,6 +173,7 @@ const VariantSelector = ({ variants, selectedVariant, onVariantChange }) => (
     </div>
   </div>
 );
+
 
 // Related Products component
 const RelatedProduct = ({ product }) => (
@@ -204,8 +190,7 @@ const RelatedProduct = ({ product }) => (
         {product.name}
       </p>
       <p className="text-lg font-semibold text-darkRed">
-        IDR {formatPrice(product.price)} /{" "}
-        {formatPrice(product.price)}
+        IDR {formatPrice(product.price)} / {formatPrice(product.price)}
       </p>
     </div>
   </div>

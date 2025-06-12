@@ -22,32 +22,41 @@ export const updateCartItem = async (productId, lineId, quantity) => {
   console.log("resss", res);
   return res.data;
 };
-export const addToCart = async (
-  productId,
-  add_qty = 1,
-  set_qty = 0,
-  product_custom_attribute_values = null,
-  no_variant_attribute_value_ids = null
+export const addCartItem = async (
+  product_id,
+  product_template_id,
+  attribute_value_ids,
+  // product_custom_attribute_values = "[]",
+  // variant_values,
+  // no_variant_attribute_values = "[]",
+  add_qty
 ) => {
-  try {
-    const res = await axios.post(
-      "/api/cart/add",
-      {
-        product_id: productId,
-        add_qty: add_qty,
-        set_qty: set_qty,
-        product_custom_attribute_values: product_custom_attribute_values,
-        no_variant_attribute_value_ids: no_variant_attribute_value_ids,
+  console.log(
+    "addCartItem called with:",
+    product_id,
+    product_template_id,
+    attribute_value_ids,
+    add_qty
+  );
+  const res = await axios.post(
+    "/api/cart/update",
+    {
+      product_id: product_id,
+      product_template_id: parseInt(product_template_id),
+      attribute_value_ids: attribute_value_ids,
+      // product_custom_attribute_values: product_custom_attribute_values,
+      // variant_values: variant_values,
+      // no_variant_attribute_values: no_variant_attribute_values,
+      add_qty: add_qty,
+      display: false,
+      force_create: true,
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
       },
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    return res.data;
-  } catch (error) {
-    console.error("Error adding to cart:", error);
-    throw error; // Re-throw the error for the component to handle
-  }
+    }
+  );
+  console.log("resss", res);
+  return res.data;
 };
