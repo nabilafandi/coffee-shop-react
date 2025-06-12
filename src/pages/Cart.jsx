@@ -48,7 +48,7 @@ const Cart = () => {
           </div>
           <div className="text-right mt-4">
             <button
-              // onClick={handleCheckout}
+              onClick={() => window.location.href = `${import.meta.env.VITE_ODOO_URL}/shop/cart`}
               className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
             >
               Pay Now
