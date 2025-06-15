@@ -12,9 +12,9 @@ const MainLayout = () => {
       </div>
       <Navbar />
       <Outlet />
-      <footer className="text-center">
+      {/* <footer className="text-center">
         Copyright 2024 Tripical Coffee - All Rights Reserved
-      </footer>
+      </footer> */}
     </div>
   );
 };

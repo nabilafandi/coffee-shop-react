@@ -3,23 +3,29 @@ import background from "../assets/background/bg-trippical.jpeg";
 
 const Logo = () => {
   return (
-    <div className="flex flex-col items-center justify-center ">
-      <h1 className="flex font-mogena center items-center text-red-800 text-2xl ">
+    <div className="flex flex-col items-center justify-center scale-[2.5] sm:scale-[3.5]">
+      <h1 className="flex font-mogena center items-center text-red-800 text-3xl sm:text-7xl lg:text-8xl">
         Tripical
         <img
           src={LogoTripical}
           alt="Logo Tripical Coffee"
-          className="w-6 mx-1"
+          className="w-16 sm:w-20 mx-4"
         />
         Coffee
       </h1>
-      <p className=" text-xs text-trippicalWhite font- "> <i>Beyond</i>  Your Expectation</p>
+      <p className="text-base sm:text-xl text-trippicalWhite mt-2">
+        <i>Beyond</i> Your Expectation
+      </p>
     </div>
   );
 };
+
 const Hero = () => {
   return (
-    <div className="absolute top-0 w-full -z-10 h-screen bg-cover bg-center flex items-center justify-center" style={{ backgroundImage: `url(${background})` }} >
+    <div
+      className="absolute top-0 w-full -z-10 h-screen bg-cover bg-center flex items-center justify-center"
+      style={{ backgroundImage: `url(${background})` }}
+    >
       <div className="py-32">
         <Logo />
       </div>
