@@ -2,7 +2,7 @@ import { useEffect, useState, useMemo } from "react";
 import { fetchCart, buyAsGuest } from "../services/apiClient";
 import { useNavigate } from "react-router-dom"; 
 
-const CartPopup = ({ onClose }) => {
+export const CartPopup = ({ onClose }) => {
   const [cart, setCart] = useState({ items: [], subTotal: 0 });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -14,6 +14,7 @@ const CartPopup = ({ onClose }) => {
       setError(null);
       try {
         const data = await fetchCart();
+        console.log("fetchcart.", data);
         setCart(data);
       } catch (err) {
         setError(err.message);
@@ -121,4 +122,4 @@ const CartPopup = ({ onClose }) => {
   );
 };
 
-export default CartPopup;
+

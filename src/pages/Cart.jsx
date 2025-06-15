@@ -2,6 +2,11 @@ import { getCart, updateCartItem } from "../services/cartApi";
 import CartItem from "../components/CartItem";
 import { useEffect, useState, useMemo } from "react";
 
+const paymentLink = {
+  dev: import.meta.env.VITE_ODOO_URL,
+  prod: "http://145.79.13.25:8069/",
+};
+
 const Cart = () => {
   const [cart, setCart] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -48,8 +53,10 @@ const Cart = () => {
           </div>
           <div className="text-right mt-4">
             <button
-              onClick={() => window.location.href = `${import.meta.env.VITE_ODOO_URL}/shop/cart`}
-              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+              onClick={() =>
+                (window.location.href = `${paymentLink.prod}/shop/cart`)
+              }
+              className="p-2 w-40 space-x-3 text-trippicalBlack flex border border-trippicalBlack rounded-full align-middle justify-center"
             >
               Pay Now
             </button>

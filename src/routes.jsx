@@ -6,7 +6,7 @@ import Locations from "./pages/Locations.jsx";
 import MainLayout from "./layouts/MainLayout.jsx";
 import ShopLayout from "./layouts/ShopLayout.jsx";
 import ProductList from "./components/ProductList.jsx";
-import ProductDetails from "./components/ProductDetails.jsx";
+import ProductDetails from "./components/ProductDetails/ProductDetails.jsx";
 import AboutUs from "./pages/AboutUs.jsx";
 import Test from "./pages/test.jsx";
 import Cart from "./pages/Cart.jsx"

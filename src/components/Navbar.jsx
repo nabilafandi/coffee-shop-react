@@ -124,7 +124,7 @@ export default function Navbar() {
             </div>
           </a>
           <a
-            href="cart"
+            href="/cart"
             className="text-sm font-semibold leading-6 text-logoRed"
           >
             <div className="flex items-center justify-center h-6 w-6">
