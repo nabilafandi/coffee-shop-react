@@ -5,7 +5,6 @@ import { fetchProductListData } from "../services/apiProduct";
 
 const ProductList = () => {
   const { category } = useParams(); // Get the category from the URL
-  console.log("category", category);
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -31,20 +30,20 @@ const ProductList = () => {
   if (error) return <p>Error: {error}</p>;
   
   const renderData = data.products.map((product) => (
-    <li key={product.id} className="p-4 rounded-lg ">
+    <li key={product.id} className="p-2 sm:p-4 rounded-lg">
       <NavLink to={`/shop/${category}/${product.id}`} className="text-blue-500">
-        <div className="w-52 aspect-square overflow-hidden rounded-md bg-gray-200  group-hover:opacity-75 ">
+        <div className="w-full aspect-square overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75">
           <img
             alt={product.name}
             src={product.images[0]?.image_url}
-            className="h-full w-full object-cover object-center "
+            className="h-full w-full object-cover object-center"
           />
         </div>
         <div>
-          <p className="text-lg font-semibold text-trippicalBlack">
+          <p className="text-base sm:text-lg font-semibold text-trippicalBlack">
             {product.name}
           </p>
-          <p className="text-lg font-semibold text-darkRed">
+          <p className="text-base sm:text-lg font-semibold text-darkRed">
             IDR {Math.round(product.price / 1000)} {" / "}
             {Math.round(product.price / 1000)}
           </p>
@@ -55,10 +54,14 @@ const ProductList = () => {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold capitalize font-mogena text-trippicalBlack">
+    <br/>
+    <br/>
+      <h2 className="text-xl sm:text-2xl font-bold capitalize font-mogena text-trippicalBlack">
         {data.category}
       </h2>
-      <ul className="grid grid-cols-3  mt-6 gap-2 w-4/2">{renderData}</ul>
+      <ul className="grid grid-cols-2 sm:grid-cols-3 mt-6 gap-3 sm:gap-4 w-full">
+        {renderData}
+      </ul>
     </div>
   );
 };

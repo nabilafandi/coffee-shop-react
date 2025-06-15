@@ -1,9 +1,46 @@
 import { motion } from "framer-motion";
-import ImageSlider2 from "../components/ImageSlider2";
 import { fetchAboutUsData } from "../services/api";
 import { useEffect, useState } from "react";
+import { ImageSwiper } from "../components/ImageSwiper";
 
+// Animation variants
+const fadeSlideUp = {
+  hidden: { opacity: 0, y: 60, scale: 0.95 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] },
+  },
+};
 
+const fadeSlideRight = {
+  hidden: { opacity: 0, x: -60, scale: 0.95 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    scale: 1,
+    transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] },
+  },
+};
+
+const fadeSlideLeft = {
+  hidden: { opacity: 0, x: 60, scale: 0.95 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    scale: 1,
+    transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] },
+  },
+};
+
+const stagger = {
+  visible: {
+    transition: {
+      staggerChildren: 0.25,
+    },
+  },
+};
 
 const AboutUs = () => {
   const [aboutData, setAboutData] = useState(null);
@@ -28,101 +65,87 @@ const AboutUs = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
-  const fadeIn = {
-    hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-  };
-
-  const staggerContainer = {
-    visible: {
-      transition: { staggerChildren: 0.3 },
-    },
-  };
-
   return (
     <div className="relative">
-      <div className="-right-20 top-12 absolute rotate-12 h-80 -z-10">
-        <img
-          src="src/assets/background/tiki1.png"
-          className="mb-3 h-full object-contain"
-        />
-        <img
-          src="src/assets/background/tiki2.png"
-          className="mb-3 h-full object-contain"
-        />
-        <img
-          src="src/assets/background/tiki3.png"
-          className="mb-3 h-full object-contain"
-        />
-      </div>
-
-      <motion.div
-        className="container mx-auto p-8 h-screen flex items-center justify-center"
+    
+      {/* Hero Section */}
+      <motion.section
+        className="container mx-auto px-4 sm:px-8 py-8 min-h-[60vh] flex items-center justify-center"
+        variants={stagger}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
-        variants={staggerContainer}
+        viewport={{ once: true, amount: 0.4 }}
       >
-        <motion.div
-          className="grid grid-cols-2 gap-8 w-full"
-          variants={staggerContainer}
-        >
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
           <motion.div
-            className="bg-gray-200 h-96"
-            variants={fadeIn}
+            className="bg-gray-200 h-56 sm:h-96 rounded-xl overflow-hidden"
+            variants={fadeSlideRight}
           >
-            <img src={aboutData.title_image_url} className="h-full w-full object-cover" />
+            <img
+              src={aboutData.title_image_url}
+              className="h-full w-full object-cover"
+              alt="About us"
+            />
           </motion.div>
           <motion.div
             className="flex items-center align-middle"
-            variants={fadeIn}
+            variants={fadeSlideLeft}
           >
             <div>
-              <p className="text-lg font-bold mb-4">{aboutData.company_name}</p>
-              <p className="text-4xl font-mogena">
+              <motion.p
+                className="text-base sm:text-lg font-bold mb-4"
+                variants={fadeSlideUp}
+              >
+                {aboutData.company_name}
+              </motion.p>
+              <motion.p
+                className="text-2xl sm:text-4xl font-mogena"
+                variants={fadeSlideUp}
+              >
                 {aboutData.tagline}
-              </p>
+              </motion.p>
             </div>
           </motion.div>
-        </motion.div>
-      </motion.div>
+        </div>
+      </motion.section>
 
-      <motion.div
-        className="bg-trippicalBlack text-trippicalWhite flex items-center justify-center h-96 text-center px-20"
+      {/* Description Section */}
+      <motion.section
+        className="bg-trippicalBlack text-trippicalWhite flex items-center justify-center min-h-48 sm:h-96 text-center px-4 sm:px-20 py-8"
+        variants={fadeSlideUp}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
-        variants={fadeIn}
+        viewport={{ once: true, amount: 0.4 }}
       >
-        <p className="text-2xl">
-        {aboutData.description}
-        </p>
-      </motion.div>
+        <p className="text-xs sm:text-2xl">{aboutData.description}</p>
+      </motion.section>
 
-      <motion.div
-        className="flex flex-col w-full h-screen justify-center space-y-6"
+      {/* Events Section */}
+      <motion.section
+        className="flex flex-col w-full min-h-48 sm:h-screen justify-center space-y-6 py-8"
+        variants={stagger}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
-        variants={staggerContainer}
       >
         <motion.div
-          className="flex flex-col items-left align-middle px-20"
-          variants={fadeIn}
+          className="flex flex-col items-left align-middle px-4 sm:px-20"
+          variants={fadeSlideUp}
         >
-          <p className="text-lg font-bold mb-1">Relive The Moment</p>
-          <p className="text-4xl font-mogena">Our past events</p>
+          <p className="text-base sm:text-lg font-bold mb-1">
+            Relive The Moment
+          </p>
+          <p className="text-2xl sm:text-4xl font-mogena">Our past events</p>
         </motion.div>
 
-        {aboutData.event_images.length > 0 && (
-          <motion.div
-            className="flex items-center justify-center"
-            variants={fadeIn}
-          >
-          </motion.div>
-        )}
-      </motion.div>
-
+        <motion.div variants={fadeSlideUp}>
+          {aboutData.event_images && aboutData.event_images.length > 0 && (
+            <div className="w-full">
+              <ImageSwiper images={aboutData.event_images} />
+            </div>
+          )}
+        </motion.div>
+      </motion.section>
     </div>
   );
 };

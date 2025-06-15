@@ -8,10 +8,7 @@ import { ProductImageGallery } from "./ProductImageGallery";
 import { ProductInfo } from "./ProductInfo";
 import { VariantSelector } from "./VariantSelector";
 import { RelatedProduct } from "./RelatedProduct";
-import {AddToCartButton} from "./AddToCartButton";
-
-
-// Utility function to format prices
+import { AddToCartButton } from "./AddToCartButton";
 
 const ProductDetails = () => {
   const { productId } = useParams();
@@ -38,14 +35,11 @@ const ProductDetails = () => {
   }, [productId]);
 
   const handleAddToCart = async () => {
-    console.log("dataa adtcart:", data);
     if (Object.keys(selectedVariant).length !== data.attributes.length) {
       alert("Please select a variant for each option!");
       return;
     }
-    console.log("selectedVariant", selectedVariant);
     const selectedValueIds = Object.values(selectedVariant);
-    console.log("selectedValueIds", selectedValueIds);
     await addCartItem(null, productId, selectedValueIds, quantity);
   };
 
@@ -55,38 +49,47 @@ const ProductDetails = () => {
   if (error) return <p>Error: {error}</p>;
 
   return (
-    <div className="flex flex-col max-w-2xl">
-      <div className="flex">
-        <div className="grid gap-4 max-w-sm">
-          <ProductImageGallery images={data.images} />
-        </div>
+    <div className="flex flex-col max-w-7xl w-full mx-auto px-2 sm:px-4 md:px-8">
+      {/* Product Main Section */}
+      <div className="flex flex-col md:flex-row md:items-start">
+        <div className="w-full md:w-[500px] lg:w-[600px] md:mr-8">
+          <div className="flex flex-col md:flex-row gap-6">
+            <div className="w-full md:max-w-sm">
+              <ProductImageGallery images={data.images} />
+            </div>
 
-        <div className="pl-8 flex flex-col justify-between w-full">
-          <ProductInfo product={data} />
+            <div className="flex-1 flex flex-col justify-between w-full mt-6 md:mt-0 md:pl-8">
+              <ProductInfo product={data} />
 
-          <VariantSelector
-            variants={data.attributes}
-            selectedVariant={selectedVariant}
-            onVariantChange={setSelectedVariant}
-          />
+              <div className="mt-4">
+                <VariantSelector
+                  variants={data.attributes}
+                  selectedVariant={selectedVariant}
+                  onVariantChange={setSelectedVariant}
+                />
+              </div>
 
-          {/* <QuantitySelector onQuantityChange={handleQuantityChange} /> */}
+              {/* <QuantitySelector onQuantityChange={handleQuantityChange} /> */}
 
-          <AddToCartButton
-            productId={productId}
-            selectedVariant={selectedVariant}
-            quantity={quantity}
-            attributes={data.attributes}
-          />
+              <div className="mt-4">
+                <AddToCartButton
+                  productId={productId}
+                  selectedVariant={selectedVariant}
+                  quantity={quantity}
+                  attributes={data.attributes}
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
       {/* Customers also purchased */}
-      <div className="w-full py-16">
-        <h2 className="text-3xl font-mogena text-trippicalBlack">
+      <div className="w-full py-10">
+        <h2 className="text-2xl sm:text-3xl font-mogena text-trippicalBlack">
           Customers also purchased
         </h2>
-        <div className="mt-6 grid grid-cols-3 gap-x-6 gap-y-10">
+        <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-8">
           {data.related_products.map((relatedProduct) => (
             <RelatedProduct key={relatedProduct.id} product={relatedProduct} />
           ))}

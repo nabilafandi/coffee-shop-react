@@ -4,7 +4,7 @@ import { useEffect, useState, useMemo } from "react";
 
 const paymentLink = {
   dev: import.meta.env.VITE_ODOO_URL,
-  prod: "http://145.79.13.25:8069/",
+  prod: "http://145.79.13.25:8069",
 };
 
 const Cart = () => {
@@ -54,7 +54,7 @@ const Cart = () => {
           <div className="text-right mt-4">
             <button
               onClick={() =>
-                (window.location.href = `${paymentLink.prod}/shop/cart`)
+                (window.location.href = `${paymentLink.dev}/shop/cart`)
               }
               className="p-2 w-40 space-x-3 text-trippicalBlack flex border border-trippicalBlack rounded-full align-middle justify-center"
             >
