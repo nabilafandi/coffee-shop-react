@@ -107,7 +107,7 @@ export default function Navbar() {
           <a href="/" className="hidden lg:flex -m-1.5 p-1.5">
             <img
               alt=""
-              src="/src/assets/Logo/LogoTripical.png"
+              src="/assets/Logo/LogoTripical.png"
               className="h-6 w-auto"
             />
           </a>
