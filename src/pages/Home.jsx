@@ -34,16 +34,16 @@ function Home() {
       >
         <div className="py-32">
           <div className="flex flex-col items-center justify-center ">
-            <h1 className="flex font-mogena center items-center text-red-800 text-2xl ">
+            <h1 className="flex font-mogena center items-center text-red-800 text-8xl">
               Tripical
               <img
                 src={LogoTripical}
                 alt="Logo Tripical Coffee"
-                className="w-6 mx-1"
+                className="w-14 mx-1"
               />
               Coffee
             </h1>
-            <p className=" text-xs text-trippicalWhite font- ">
+            <p className=" text-3xl text-trippicalWhite" style={{ marginTop: "-22px" }}>
               <div dangerouslySetInnerHTML={{ __html: data.tagline }} />
             </p>
           </div>
