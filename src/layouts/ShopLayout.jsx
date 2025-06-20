@@ -43,9 +43,7 @@ function ShopSidebar({ isOpen, onClose }) {
             <div onClick={() => toggleExpand(category.id)} className="cursor-pointer">
               <NavLink
                 to={`/shop/${category.id}`}
-                className={({ isActive }) =>
-                  isActive ? "text-logoRed font-bold" : ""
-                }
+                className={({ isActive }) => `block whitespace-nowrap overflow-hidden text-ellipsis truncate ${isActive ? "text-logoRed font-bold" : ""}` }
                 onClick={onClose}
               >
                 {category.name}

@@ -2,10 +2,14 @@
 import { Field, Label, Radio, RadioGroup } from "@headlessui/react";
 import { FaCheck } from "react-icons/fa6";
 
-export const VariantSelector = ({ variants, selectedVariant, onVariantChange }) => (
-  <div>
+export const VariantSelector = ({
+  variants,
+  selectedVariant,
+  onVariantChange,
+}) => (
+  <div className="inline-block w-auto">
     <h3 className="text-sm font-bold">Choose a variant:</h3>
-    <div className="mt-2 grid grid-cols-2 gap-2">
+    <div className="mt-2 inline-grid grid-cols-2 gap-2 w-max">
       {variants?.map((variant) => (
         <div key={variant.id}>
           <p>{variant.name}</p>
