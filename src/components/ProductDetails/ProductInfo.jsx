@@ -10,7 +10,7 @@ export const ProductInfo = ({ product }) => (
     <div
       className="text-md text-trippicalBlack mt-5"
       dangerouslySetInnerHTML={{
-        __html: product.description || "lorem ipsum lorem ipsum lorem ipsum",
+        __html: product.description || "",
       }}
     />
   </div>

@@ -13,6 +13,7 @@ import { AddToCartButton } from "./AddToCartButton";
 const ProductDetails = () => {
   const { productId } = useParams();
   const [selectedVariant, setSelectedVariant] = useState({});
+  const [selectedAddons, setSelectedAddons] = useState({});
   const [quantity, setQuantity] = useState(1);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [data, setData] = useState(null);
@@ -63,18 +64,22 @@ const ProductDetails = () => {
 
               <div className="mt-4">
                 <VariantSelector
-                  variants={data.attributes}
-                  selectedVariant={selectedVariant}
-                  onVariantChange={setSelectedVariant}
-                />
+      variants={data.attributes}
+      selectedVariant={selectedVariant}
+      selectedAddons={selectedAddons} // <-- ADD THIS
+      onVariantChange={setSelectedVariant}
+      onAddonChange={setSelectedAddons} // <-- ADD THIS
+    />
               </div>
 
               {/* <QuantitySelector onQuantityChange={handleQuantityChange} /> */}
 
               <div className="mt-4">
                 <AddToCartButton
+                  productVariantId={data.variants[0]?.id}
                   productId={productId}
                   selectedVariant={selectedVariant}
+                  selectedAddons={selectedAddons}
                   quantity={quantity}
                   attributes={data.attributes}
                 />

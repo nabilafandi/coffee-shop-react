@@ -3,18 +3,44 @@
 import { useState } from "react";
 import { addCartItem } from "../../services/cartApi";
 
-export const AddToCartButton = ({ productId, selectedVariant, quantity, attributes }) => {
+export const AddToCartButton = ({
+  productVariantId,
+  productId,
+  selectedVariant,
+  selectedAddons,
+  quantity,
+  attributes,
+}) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const handleAddToCart = async () => {
-    if (Object.keys(selectedVariant).length !== attributes.length) {
-      alert("Please select a variant for each option!");
-      return;
+    // Get value ids for "always"
+    const selectedValueIds = attributes
+      .filter((attr) => attr.create_variant === "always")
+      .map((attr) => selectedVariant[attr.id])
+      .filter(Boolean);
+
+    // Get value ids for "never" (addons)
+    const addonValueIds = attributes
+      .filter((attr) => attr.create_variant === "no_variant")
+      .flatMap((attr) =>
+        Array.isArray(selectedAddons?.[attr.id]) ? selectedAddons[attr.id] : []
+      );
+    console.log("addonValueIds", addonValueIds);
+
+    let singleProductVariantId = null;
+    if (selectedValueIds.length === 0) {
+      singleProductVariantId = productVariantId;
     }
 
-    const selectedValueIds = Object.values(selectedVariant);
-    await addCartItem(null, productId, selectedValueIds, quantity);
-    setIsDialogOpen(true); // Open the dialog after adding to cart
+    await addCartItem(
+      singleProductVariantId,
+      productId,
+      selectedValueIds,
+      addonValueIds,
+      quantity
+    );
+    setIsDialogOpen(true);
   };
 
   const closeDialog = () => setIsDialogOpen(false);

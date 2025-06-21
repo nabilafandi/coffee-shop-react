@@ -28,7 +28,7 @@ export const addCartItem = async (
   attribute_value_ids,
   // product_custom_attribute_values = "[]",
   // variant_values,
-  // no_variant_attribute_values = "[]",
+  no_variant_attribute_values = "[]",
   add_qty
 ) => {
   console.log(
@@ -36,6 +36,7 @@ export const addCartItem = async (
     product_id,
     product_template_id,
     attribute_value_ids,
+    no_variant_attribute_values,
     add_qty
   );
   const res = await axios.post(
@@ -46,7 +47,7 @@ export const addCartItem = async (
       attribute_value_ids: attribute_value_ids,
       // product_custom_attribute_values: product_custom_attribute_values,
       // variant_values: variant_values,
-      // no_variant_attribute_values: no_variant_attribute_values,
+      no_variant_attribute_values: no_variant_attribute_values,
       add_qty: add_qty,
       display: false,
       force_create: true,
