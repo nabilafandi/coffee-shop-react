@@ -10,6 +10,7 @@ import { VariantSelector } from "./VariantSelector";
 import { RelatedProduct } from "./RelatedProduct";
 import { AddToCartButton } from "./AddToCartButton";
 
+// TODO: Allow user to click on customer also purchased products to view their details
 const ProductDetails = () => {
   const { productId } = useParams();
   const [selectedVariant, setSelectedVariant] = useState({});
