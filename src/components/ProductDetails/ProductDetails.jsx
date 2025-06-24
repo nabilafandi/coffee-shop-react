@@ -82,6 +82,7 @@ const ProductDetails = () => {
                   selectedAddons={selectedAddons}
                   quantity={quantity}
                   attributes={data.attributes}
+                  product={data}
                 />
               </div>
             </div>

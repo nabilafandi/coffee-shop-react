@@ -5,6 +5,7 @@ const API_BASE_URL = '/odoo-api'; // Use environment variables
 export const fetchCategoryData = async () => {
   try {
     const response = await axios.get(`${API_BASE_URL}/api/product/category`);
+    console.log("response category", response.data);
     return response.data;
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -20,9 +21,12 @@ export const fetchProductListData = async (category) => {
     return []
   }
 };
+
+// TODO: block non website products from being shown in product details
 export const fetchProductDetailsData = async (product_id) => {
   try {
     const response = await axios.get(`${API_BASE_URL}/api/product/${product_id}`);
+    console.log("response productdetail", response.data);
     return response.data;
   } catch (error) {
     console.error("Error fetching data:", error);

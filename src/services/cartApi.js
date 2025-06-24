@@ -22,6 +22,7 @@ export const updateCartItem = async (productId, lineId, quantity) => {
   console.log("resss", res);
   return res.data;
 };
+// TODO: block non website products from being added to cart
 export const addCartItem = async (
   product_id,
   product_template_id,

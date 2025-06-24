@@ -5,28 +5,62 @@ import { Outlet } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { fetchCategoryData } from "../services/apiProduct";
 import { useEffect, useState } from "react";
+import { IoChevronBack } from "react-icons/io5";
 
 // Horizontal scrollable categories for mobile
 function MobileCategoryHeader({ data }) {
+  const [navStack, setNavStack] = useState([{ categories: data, parent: null, label: null }]);
+  const current = navStack[navStack.length - 1];
+
+  const handleCategoryClick = (category) => {
+    if (category.child_ids && category.child_ids.length > 0) {
+      setNavStack((prev) => [
+        ...prev,
+        { categories: category.child_ids, parent: prev[prev.length - 1], label: category.name },
+      ]);
+    } else {
+      // If no children, reset navStack to top level (optional)
+      // setNavStack([{ categories: data, parent: null, label: null }]);
+    }
+    // No preventDefault! Let NavLink handle navigation
+  };
+
+  const handleBack = () => {
+    setNavStack((prev) => prev.length > 1 ? prev.slice(0, -1) : prev);
+  };
+
   return (
-    <nav className="md:hidden w-full overflow-x-auto  py-2 px-2 flex space-x-4  border-b-2">
-      {data.map((category) => (
-        <NavLink
-          key={category.id}
-          to={`/shop/${category.id}`}
-          className={({ isActive }) =>
-            `whitespace-nowrap px-3 py-1 rounded-full font-bold font-mogena  transition-colors duration-200 ${
-              isActive ? " text-logoRed" : "text-trippicalBlack"
-            }`
-          }
-        >
-          {category.name}
-        </NavLink>
-      ))}
-    </nav>
+    <>
+      <nav className="md:hidden w-full overflow-x-auto py-2 px-2 flex items-center space-x-4 border-b-2">
+        {navStack.length > 1 && (
+          <button
+            className="flex items-center px-2 py-1 rounded-full text-trippicalBlack"
+            onClick={handleBack}
+          >
+            <IoChevronBack className="mr-1" />
+          </button>
+        )}
+        {current.categories.map((category) => (
+          <NavLink
+            key={category.id}
+            to={`/shop/${category.id}`}
+            className={({ isActive }) =>
+              `whitespace-nowrap px-3 py-1 rounded-full font-bold font-mogena transition-colors duration-200 ${
+                isActive ? "text-logoRed" : "text-trippicalBlack"
+              }`
+            }
+            onClick={() => handleCategoryClick(category)}
+          >
+            {category.name}
+            {category.child_ids && category.child_ids.length > 0 && (
+              <span className="ml-2">▶</span>
+            )}
+          </NavLink>
+        ))}
+      </nav>
+    </>
   );
 }
-
 function CategoryList({ categories, level = 0 }) {
   return (
     <ul

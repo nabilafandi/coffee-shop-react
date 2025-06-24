@@ -1,6 +1,6 @@
 import { getCart, updateCartItem } from "../services/cartApi";
 import CartItem from "../components/CartItem";
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState } from "react";
 
 const paymentLink = {
   dev: import.meta.env.VITE_ODOO_URL,
@@ -30,38 +30,55 @@ const Cart = () => {
     fetchCart();
   }, []);
 
-  console.log("Cart component rendered", cart);
-
   if (loading) return <p>Loading cart...</p>;
 
   return (
-    <div className="max-w-3xl mx-auto p-4">
+    <div className="max-w-8xl mx-auto p-2 md:p-8 overflow-x-hidden w-full">
+      <h1 className="text-2xl font-bold mb-6">Shopping Cart</h1>
       {cart?.lines?.length === 0 ? (
-        <p>Your cart is empty.</p>
+        <div className="rounded-lg shadow p-8 text-center text-gray-500">
+          Your cart is empty.
+        </div>
       ) : (
-        <>
-          {cart.lines.map((item) => (
-            <CartItem
-              key={item.line_id}
-              item={item}
-              onQuantityChange={handleQuantityChange}
-              onRemove={handleRemove}
-            />
-          ))}
-          <div className="text-right mt-4 font-semibold text-xl">
-            Total: Rp {cart.total?.toFixed(2)}
+        <div className="flex flex-col md:flex-row gap-8">
+          {/* Cart Items */}
+          <div className="flex-1 w-full">
+            <div className="rounded-lg  p-2 md:p-4">
+              {cart.lines.map((item) => (
+                <CartItem
+                  key={item.line_id}
+                  item={item}
+                  onQuantityChange={handleQuantityChange}
+                  onRemove={handleRemove}
+                />
+              ))}
+            </div>
           </div>
-          <div className="text-right mt-4">
-            <button
-              onClick={() =>
-                (window.location.href = `${paymentLink.prod}/shop/cart`)
-              }
-              className="p-2 w-40 space-x-3 text-trippicalBlack flex border border-trippicalBlack rounded-full align-middle justify-center"
-            >
-              Pay Now
-            </button>
+          {/* Cart Summary */}
+          <div className="w-full md:w-80">
+            <div className="rounded-lg shadow p-4 md:p-6 sticky top-8 border border-gray-200 bg-opacity-80 backdrop-blur">
+              <h2 className="text-lg font-semibold mb-4">Order Summary</h2>
+              <div className="flex justify-between mb-2">
+                <span className="text-gray-600">Subtotal</span>
+                <span>IDR {cart.total?.toLocaleString("id-ID")}</span>
+              </div>
+              {/* Add more summary rows here if needed */}
+              <div className="border-t my-4"></div>
+              <div className="flex justify-between font-bold text-lg mb-6">
+                <span>Total</span>
+                <span>IDR {cart.total?.toLocaleString("id-ID")}</span>
+              </div>
+              <button
+                onClick={() =>
+                  (window.location.href = `${paymentLink.dev}/shop/cart`)
+                }
+                className="w-full py-3 rounded-full bg-logoRed text-white font-semibold hover:bg-red-600 transition"
+              >
+                Checkout
+              </button>
+            </div>
           </div>
-        </>
+        </div>
       )}
     </div>
   );
