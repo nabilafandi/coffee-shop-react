@@ -27,28 +27,41 @@ function MobileCategoryHeader({ data }) {
   );
 }
 
+function CategoryList({ categories, level = 0 }) {
+  return (
+    <ul
+      className={`text-xl font-bold font-mogena text-trippicalBlack ${
+        level > 0 ? "ml-4 border-l-2 border-gray-200 pl-4" : ""
+      }`}
+    >
+      {categories.map((category) => (
+        <li className="mb-4" key={category.id}>
+          <NavLink
+            to={`/shop/${category.id}`}
+            className={({ isActive }) =>
+              `block whitespace-nowrap overflow-hidden text-ellipsis truncate ${
+                isActive ? "text-logoRed font-bold" : ""
+              }`
+            }
+          >
+            {category.name}
+          </NavLink>
+          {category.child_ids && category.child_ids.length > 0 && (
+            <CategoryList categories={category.child_ids} level={level + 1} />
+          )}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 function ShopSidebar({ data }) {
   // Only show on desktop
   return (
     <aside className="hidden md:flex flex-col w-64 h-full bg-offWhite text-white p-4">
       <div className="w-full ml-20">
         <nav>
-          <ul className="text-xl font-bold font-mogena text-trippicalBlack">
-            {data.map((category) => (
-              <li className="mb-4" key={category.id}>
-                <NavLink
-                  to={`/shop/${category.id}`}
-                  className={({ isActive }) =>
-                    `block whitespace-nowrap overflow-hidden text-ellipsis truncate ${
-                      isActive ? "text-logoRed font-bold" : ""
-                    }`
-                  }
-                >
-                  {category.name}
-                </NavLink>
-              </li>
-            ))}
-          </ul>
+          <CategoryList categories={data} />
         </nav>
       </div>
     </aside>
