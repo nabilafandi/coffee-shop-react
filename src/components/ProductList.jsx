@@ -32,7 +32,7 @@ const ProductList = () => {
   const renderData = data.products.map((product) => (
     <li key={product.id} className="p-2 sm:p-4 rounded-lg">
       <NavLink to={`/shop/${category}/${product.id}`} className="text-blue-500">
-        <div className="w-full aspect-square overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75">
+        <div className="w-full aspect-square overflow-hidden rounded-md  group-hover:opacity-75">
           <img
             alt={product.name}
             src={product.images[0]?.image_url}

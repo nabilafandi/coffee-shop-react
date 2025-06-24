@@ -52,6 +52,7 @@ const Locations = () => {
     const getData = async () => {
       try {
         const data = await fetchLocationData();
+        console.log("Location Data:", data);
         setData(data);
       } catch (err) {
         setError(err.message);
@@ -115,6 +116,7 @@ const Locations = () => {
                 variants={fadeSlideUp}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.97 }}
+                onClick={() => window.location.href = data.link_whatsapp}
               >
                 <FaWhatsapp className="mr-2" />
                 Contact Us
@@ -124,6 +126,8 @@ const Locations = () => {
                 variants={fadeSlideUp}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.97 }}
+                onClick={() => window.location.href = data.link_map}
+
               >
                 <FaMapMarkerAlt className="mr-2" />
                 Find Us
