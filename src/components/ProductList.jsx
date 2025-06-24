@@ -14,7 +14,7 @@ const ProductList = () => {
       try {
         setLoading(true);
         const data = await fetchProductListData(category);
-
+        console.log(data)
         setData(data);
       } catch (err) {
         setError(err.message);
