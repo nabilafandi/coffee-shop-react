@@ -69,7 +69,7 @@ function CategoryList({ categories, level = 0 }) {
       }`}
     >
       {categories.map((category) => (
-        <li className="mb-5" key={category.id}>
+        <li className={`${level > 0 ? 'mb-2' : 'mb-5'}`} key={category.id}>
           <NavLink
             to={`/shop/${category.id}`}
             className={({ isActive }) =>
