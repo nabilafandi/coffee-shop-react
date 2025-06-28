@@ -1,4 +1,5 @@
 import axios from "axios";
+import axiosInstance from "./axiosInstance";
 
 const API_BASE_URL = '/odoo-api'; 
 export const fetchAboutUsData = async () => {
@@ -9,6 +10,11 @@ export const fetchAboutUsData = async () => {
     console.error("Error fetching data:", error);
     throw error;
   }
+};
+
+export const getCompanyInfo = async () => {
+  const res = await axiosInstance.get("/api/company");
+  return res.data;
 };
 export const fetchHomeData = async () => {
   try {

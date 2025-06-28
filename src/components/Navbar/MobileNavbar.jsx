@@ -12,7 +12,7 @@ const navigations = [
   { id: "promo", string: "Promo", to: "/promo" },
 ];
 
-export default function MobileNavbar() {
+export default function MobileNavbar(company) {
   const [open, setOpen] = useState(false);
 
   // You can add your own login logic here if needed
@@ -70,7 +70,10 @@ export default function MobileNavbar() {
               <a href="/cart" className="text-logoRed">
                 <PiHandbag aria-hidden="true" className="h-6 w-6" />
               </a>
-              <a href="#" className="text-logoRed">
+              <a href={company?.social?.instagram || "https://www.instagram.com/tripicalcoffee/?hl=en"} 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-logoRed">
                 <FaInstagram aria-hidden="true" className="h-6 w-6" />
               </a>
             </div>

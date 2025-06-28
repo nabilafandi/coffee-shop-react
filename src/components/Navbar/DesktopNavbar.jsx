@@ -9,14 +9,13 @@ const navigations = [
   { id: "promo", string: "Promo", to: "/promo" },
 ];
 
-export default function DesktopNavbar() {
+export default function DesktopNavbar(company) {
   const location = useLocation();
   const isHomePage = location.pathname === "/";
 
   // You can add your own login logic here if needed
   const odooLoginUrl = `${import.meta.env.VITE_ODOO_URL}/web/login`;
   const userProfileUrl = `${import.meta.env.VITE_ODOO_URL}/my/home`;
-
   return (
     <div className="hidden lg:flex w-full items-center justify-between">
       {/* Left: Logo and Navigation */}
@@ -66,7 +65,7 @@ export default function DesktopNavbar() {
             <PiHandbag aria-hidden="true" className="w-6 h-6" />
           </span>
         </a>
-        <a href="#" className="text-sm font-semibold leading-6 text-logoRed">
+        <a href= {company?.social?.instagram || "https://www.instagram.com/tripicalcoffee/?hl=en"} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold leading-6 text-logoRed">
           <span className="flex items-center justify-center w-7 h-7">
             <FaInstagram aria-hidden="true" className="w-6 h-6" />
           </span>
