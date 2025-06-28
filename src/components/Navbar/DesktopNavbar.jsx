@@ -16,6 +16,7 @@ export default function DesktopNavbar(company) {
   // You can add your own login logic here if needed
   const odooLoginUrl = `${import.meta.env.VITE_ODOO_URL}/web/login`;
   const userProfileUrl = `${import.meta.env.VITE_ODOO_URL}/my/home`;
+  console.log("Company Data:", company);
   return (
     <div className="hidden lg:flex w-full items-center justify-between">
       {/* Left: Logo and Navigation */}
