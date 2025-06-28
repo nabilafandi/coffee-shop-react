@@ -54,7 +54,7 @@ const ProductDetails = () => {
     <div className="flex flex-col max-w-7xl w-full mx-auto px-2 sm:px-4 md:px-8">
       {/* Product Main Section */}
       <div className="flex flex-col md:flex-row md:items-start">
-        <div className="w-full  md:mr-8">
+        <div className="w-full md:max-w-6xl md:mr-8">
           <div className="flex flex-col md:flex-row gap-6">
             <div className="w-full md:max-w-sm">
               <ProductImageGallery images={data.images} />
@@ -65,12 +65,12 @@ const ProductDetails = () => {
 
               <div className="mt-4">
                 <VariantSelector
-      variants={data.attributes}
-      selectedVariant={selectedVariant}
-      selectedAddons={selectedAddons} // <-- ADD THIS
-      onVariantChange={setSelectedVariant}
-      onAddonChange={setSelectedAddons} // <-- ADD THIS
-    />
+                  variants={data.attributes}
+                  selectedVariant={selectedVariant}
+                  selectedAddons={selectedAddons} 
+                  onVariantChange={setSelectedVariant}
+                  onAddonChange={setSelectedAddons} 
+                />
               </div>
 
               {/* <QuantitySelector onQuantityChange={handleQuantityChange} /> */}

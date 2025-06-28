@@ -36,7 +36,7 @@ export const VariantSelector = ({
   return (
     <div className="inline-block w-auto">
       <h3 className="text-sm font-bold">Choose a variant:</h3>
-      <div className="mt-2 inline-grid grid-cols-2 gap-2 w-max">
+      <div className="mt-2 inline-grid md:grid-cols-2 gap-2 w-full">
         {variants?.map((variant) => (
           <div key={variant.id}>
             <p>{variant.name}</p>
