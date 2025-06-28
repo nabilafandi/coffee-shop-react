@@ -64,18 +64,19 @@ function MobileCategoryHeader({ data }) {
 function CategoryList({ categories, level = 0 }) {
   return (
     <ul
-      className={`text-xl font-bold font-mogena text-trippicalBlack ${
-        level > 0 ? "ml-1  border-gray-200 " : ""
-      }`}
+      className={`mt-2 font-bold font-mogena text-trippicalBlack ${
+        level > 0 ? " " : ""
+      }`
+      }
     >
       {categories.map((category) => (
-        <li className={`${level > 0 ? 'mb-2' : 'mb-5'}`} key={category.id}>
+        <li className={`${level > 0 ? 'font-avenir font-normal text-gray-600 mb-2' : 'mb-5'}`} key={category.id}>
           <NavLink
             to={`/shop/${category.id}`}
             className={({ isActive }) =>
               `block whitespace-nowrap overflow-hidden text-ellipsis truncate ${
-                isActive ? "text-logoRed font-bold" : ""} ${
-                level > 0 ? "pl-5" : ""}`
+                isActive ? " font-bold text-trippicalBlack" : ""} ${
+                level > 0 ? "text-lg" : "text-xl"}`
             }
           >
             {category.name}
@@ -136,7 +137,7 @@ const ShopLayout = () => {
   if (error) return <p>{error}</p>;
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen relative">
+    <div className="flex flex-col md:flex-row min-h-screen relative px-0 md:px-14">
       {/* Mobile horizontal category header */}
       <MobileCategoryHeader data={data} />
       {/* Desktop sidebar */}
