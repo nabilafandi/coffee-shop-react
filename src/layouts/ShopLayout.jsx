@@ -65,17 +65,17 @@ function CategoryList({ categories, level = 0 }) {
   return (
     <ul
       className={`text-xl font-bold font-mogena text-trippicalBlack ${
-        level > 0 ? "ml-4 border-l-2 border-gray-200 pl-4" : ""
+        level > 0 ? "ml-1  border-gray-200 " : ""
       }`}
     >
       {categories.map((category) => (
-        <li className="mb-4" key={category.id}>
+        <li className="mb-5" key={category.id}>
           <NavLink
             to={`/shop/${category.id}`}
             className={({ isActive }) =>
               `block whitespace-nowrap overflow-hidden text-ellipsis truncate ${
-                isActive ? "text-logoRed font-bold" : ""
-              }`
+                isActive ? "text-logoRed font-bold" : ""} ${
+                level > 0 ? "pl-5" : ""}`
             }
           >
             {category.name}
@@ -93,7 +93,7 @@ function ShopSidebar({ data }) {
   // Only show on desktop
   return (
     <aside className="hidden md:flex flex-col w-64 h-full bg-offWhite text-white p-4">
-      <div className="w-full ml-20">
+      <div className="w-full ml-4">
         <nav>
           <CategoryList categories={data} />
         </nav>

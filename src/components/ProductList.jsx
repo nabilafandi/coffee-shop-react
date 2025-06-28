@@ -54,8 +54,7 @@ const ProductList = () => {
 
   return (
     <div>
-    <br/>
-    <br/>
+
       <h2 className="text-xl sm:text-2xl font-bold capitalize font-mogena text-trippicalBlack">
         {data.category}
       </h2>
